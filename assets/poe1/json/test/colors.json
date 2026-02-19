@@ -1,0 +1,142 @@
+[
+  {
+    "color": "Black",
+    "url": "https://www.canva.com/colors/color-meanings/black/",
+    "pixel": {
+      "r": 0,
+      "g": 0,
+      "b": 0,
+      "a": 255
+    }
+  },
+  {
+    "color": "Bronze",
+    "url": "https://encycolorpedia.com/88540b",
+    "pixel": {
+      "r": 136,
+      "g": 84,
+      "b": 11,
+      "a": 255
+    }
+  },
+  {
+    "color": "Crown Paint Lemon Squash",
+    "url": "https://encycolorpedia.com/fce097",
+    "pixel": {
+      "r": 252,
+      "g": 224,
+      "b": 151,
+      "a": 255
+    }
+  },
+  {
+    "color": "Cyber Yellow",
+    "url": "https://encycolorpedia.com/ffd300",
+    "pixel": {
+      "r": 255,
+      "g": 211,
+      "b": 0,
+      "a": 255
+    }
+  },
+  {
+    "color": "Dark Blue",
+    "url": "https://encycolorpedia.com/004f98",
+    "pixel": {
+      "r": 0,
+      "g": 79,
+      "b": 152,
+      "a": 255
+    }
+  },
+  {
+    "color": "Dark Grey",
+    "url": "https://encycolorpedia.com/878591",
+    "pixel": {
+      "r": 135,
+      "g": 133,
+      "b": 145,
+      "a": 255
+    }
+  },
+  {
+    "color": "Dark Orange",
+    "url": "https://encycolorpedia.com/ff681f",
+    "pixel": {
+      "r": 255,
+      "g": 104,
+      "b": 31,
+      "a": 255
+    }
+  },
+  {
+    "color": "Gold",
+    "url": "https://www.canva.com/colors/color-meanings/gold/",
+    "pixel": {
+      "r": 255,
+      "g": 215,
+      "b": 0,
+      "a": 255
+    }
+  },
+  {
+    "color": "Goldenrod",
+    "url": "https://encycolorpedia.com/daa520",
+    "pixel": {
+      "r": 218,
+      "g": 165,
+      "b": 32,
+      "a": 255
+    }
+  },
+  {
+    "color": "Old Glory Red",
+    "url": "https://www.customflagcompany.com/blog/2022/04/13/meaning-of-the-american-flag-colors/#:~:text=Red-,Old%20Glory%20Red,)%20and%20valor%20(courage).",
+    "pixel": {
+      "r": 179,
+      "g": 25,
+      "b": 66,
+      "a": 255
+    }
+  },
+  {
+    "color": "Phthalo Blue",
+    "url": "https://encycolorpedia.com/000f89",
+    "pixel": {
+      "r": 0,
+      "g": 15,
+      "b": 137,
+      "a": 255
+    }
+  },
+  {
+    "color": "Quest Green",
+    "url": "https://www.canva.com/colors/color-meanings/kelly-green/",
+    "pixel": {
+      "r": 76,
+      "g": 187,
+      "b": 23,
+      "a": 255
+    }
+  },
+  {
+    "color": "Red",
+    "url": "https://www.canva.com/colors/color-meanings/red/",
+    "pixel": {
+      "r": 255,
+      "g": 0,
+      "b": 0,
+      "a": 255
+    }
+  },
+  {
+    "color": "White",
+    "url": "https://www.canva.com/colors/color-meanings/white/",
+    "pixel": {
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    }
+  }
+]

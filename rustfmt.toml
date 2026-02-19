@@ -1,0 +1,10 @@
+# Copyright (c) 2025 By David "Hankinsohl" Hankins.
+# This software is licensed under the terms of the MIT License.
+# Created by Hankinsohl on 3/19/2025.
+style_edition = "2024"
+max_width = 160
+reorder_imports = true
+# Not yet stable
+#group_imports = "StdExternalCrate"
+
+

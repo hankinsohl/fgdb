@@ -1,0 +1,52 @@
+[
+  {
+    "base_type": "Delirium Precursor Tablet",
+    "item": "Clear Skies",
+    "minimum_item_level": null,
+    "gem_level": null,
+    "rarity": "Unique",
+    "price": {
+      "price": 1.0
+    }
+  },
+  {
+    "base_type": "Garment",
+    "item": "Tabula Rasa",
+    "minimum_item_level": null,
+    "gem_level": null,
+    "rarity": "Unique",
+    "price": {
+      "price": 35.0
+    }
+  },
+  {
+    "base_type": "Guarded Helm",
+    "item": "Erian's Cobble",
+    "minimum_item_level": null,
+    "gem_level": null,
+    "rarity": "Unique",
+    "price": {
+      "price": 1.0
+    }
+  },
+  {
+    "base_type": "Lazuli Ring",
+    "item": "Doedre's Damning",
+    "minimum_item_level": null,
+    "gem_level": null,
+    "rarity": "Unique",
+    "price": {
+      "price": 3.0
+    }
+  },
+  {
+    "base_type": "Seal Relic",
+    "item": "The Changing Seasons",
+    "minimum_item_level": null,
+    "gem_level": null,
+    "rarity": "Unique",
+    "price": {
+      "price": 20.0
+    }
+  }
+]

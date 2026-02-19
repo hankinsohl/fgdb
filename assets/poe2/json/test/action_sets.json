@@ -1,0 +1,23 @@
+[
+  {
+    "action_set": "Error",
+    "is_template_compatible": false,
+    "font_size": null,
+    "text_color": "White",
+    "border_color": "White",
+    "play_effect_color": "Red",
+    "background_color": "Error Red",
+    "icon": {
+      "shape": "Square",
+      "size": {
+        "size": 0
+      },
+      "color": "Red"
+    },
+    "sound": {
+      "volume": null,
+      "sound_type": "Custom",
+      "sound": "Error"
+    }
+  }
+]

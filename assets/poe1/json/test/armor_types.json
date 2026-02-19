@@ -1,0 +1,30 @@
+[
+  {
+    "base_type": "Astral Leather",
+    "armor_type": "Leather"
+  },
+  {
+    "base_type": "Chain Gloves",
+    "armor_type": "Chain"
+  },
+  {
+    "base_type": "Murder Boots",
+    "armor_type": "Padded"
+  },
+  {
+    "base_type": "Nightmare Bascinet",
+    "armor_type": "Scale"
+  },
+  {
+    "base_type": "Plate Vest",
+    "armor_type": "Plate"
+  },
+  {
+    "base_type": "Sacrificial Garb ",
+    "armor_type": "Mail"
+  },
+  {
+    "base_type": "Simple Robe",
+    "armor_type": "Cloth"
+  }
+]

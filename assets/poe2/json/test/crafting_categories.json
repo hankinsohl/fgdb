@@ -1,0 +1,74 @@
+[
+  {
+    "crafting_category": "Amulet",
+    "highest_rarity": "Rare"
+  },
+  {
+    "crafting_category": "Belt",
+    "highest_rarity": "Rare"
+  },
+  {
+    "crafting_category": "Body Armour",
+    "highest_rarity": "Rare"
+  },
+  {
+    "crafting_category": "Boots",
+    "highest_rarity": "Rare"
+  },
+  {
+    "crafting_category": "Breachstone",
+    "highest_rarity": "Normal"
+  },
+  {
+    "crafting_category": "Flask",
+    "highest_rarity": "Magic"
+  },
+  {
+    "crafting_category": "Gloves",
+    "highest_rarity": "Rare"
+  },
+  {
+    "crafting_category": "Helmet",
+    "highest_rarity": "Rare"
+  },
+  {
+    "crafting_category": "Jewel",
+    "highest_rarity": "Rare"
+  },
+  {
+    "crafting_category": "Map",
+    "highest_rarity": "Rare"
+  },
+  {
+    "crafting_category": "Map Fragment",
+    "highest_rarity": "Normal"
+  },
+  {
+    "crafting_category": "One Hand Melee",
+    "highest_rarity": "Rare"
+  },
+  {
+    "crafting_category": "One Hand Ranged",
+    "highest_rarity": "Rare"
+  },
+  {
+    "crafting_category": "Quiver",
+    "highest_rarity": "Rare"
+  },
+  {
+    "crafting_category": "Ring",
+    "highest_rarity": "Rare"
+  },
+  {
+    "crafting_category": "Shield",
+    "highest_rarity": "Rare"
+  },
+  {
+    "crafting_category": "Two Hand Melee",
+    "highest_rarity": "Rare"
+  },
+  {
+    "crafting_category": "Two Hand Ranged",
+    "highest_rarity": "Rare"
+  }
+]

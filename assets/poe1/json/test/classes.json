@@ -1,0 +1,54 @@
+[
+  {
+    "class": "Body Armours",
+    "highest_rarity": "Rare"
+  },
+  {
+    "class": "Boots",
+    "highest_rarity": "Rare"
+  },
+  {
+    "class": "Divination Cards",
+    "highest_rarity": null
+  },
+  {
+    "class": "Gloves",
+    "highest_rarity": "Rare"
+  },
+  {
+    "class": "Grafts",
+    "highest_rarity": "Rare"
+  },
+  {
+    "class": "Helmets",
+    "highest_rarity": "Rare"
+  },
+  {
+    "class": "Mana Flasks",
+    "highest_rarity": "Magic"
+  },
+  {
+    "class": "Maps",
+    "highest_rarity": "Rare"
+  },
+  {
+    "class": "None",
+    "highest_rarity": null
+  },
+  {
+    "class": "One Hand Axes",
+    "highest_rarity": "Rare"
+  },
+  {
+    "class": "Quivers",
+    "highest_rarity": "Rare"
+  },
+  {
+    "class": "Rings",
+    "highest_rarity": "Rare"
+  },
+  {
+    "class": "Stackable Currency",
+    "highest_rarity": null
+  }
+]

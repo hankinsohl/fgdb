@@ -1,0 +1,12 @@
+# Copyright (c) 2026 By David "Hankinsohl" Hankins.
+# This software is licensed under the terms of the MIT License.
+# Created by Hankinsohl on 2/18/2026.
+
+# Set game_variant to "Poe1" or "Poe2".  Used for test builds only.
+game_variant = "Poe1"
+
+# Set data_source to "Local" or "Web"
+data_source = "Local"
+
+# Path to root directory for fgen data.  Ignored if data_source is "web"
+local_data_path = "d:/fgen_data"

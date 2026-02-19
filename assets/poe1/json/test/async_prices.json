@@ -1,0 +1,42 @@
+[
+  {
+    "base_type": "Blunt Arrow Quiver",
+    "item": "The Fracturing Spinner",
+    "minimum_item_level": null,
+    "gem_level": null,
+    "rarity": "Unique",
+    "price": {
+      "price": 8.0
+    }
+  },
+  {
+    "base_type": "Nightmare Bascinet",
+    "item": "Devoto's Devotion",
+    "minimum_item_level": null,
+    "gem_level": null,
+    "rarity": "Unique",
+    "price": {
+      "price": 1.0
+    }
+  },
+  {
+    "base_type": "Ruby Ring",
+    "item": "Ahkeli's Meadow",
+    "minimum_item_level": null,
+    "gem_level": null,
+    "rarity": "Unique",
+    "price": {
+      "price": 40.0
+    }
+  },
+  {
+    "base_type": "Simple Robe",
+    "item": "Tabula Rasa",
+    "minimum_item_level": null,
+    "gem_level": null,
+    "rarity": "Unique",
+    "price": {
+      "price": 3.0
+    }
+  }
+]

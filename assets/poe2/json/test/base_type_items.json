@@ -1,0 +1,62 @@
+[
+  {
+    "base_type": "Arched Greataxe",
+    "item": null,
+    "is_unique": false
+  },
+  {
+    "base_type": "Breachstone",
+    "item": null,
+    "is_unique": false
+  },
+  {
+    "base_type": "Delirium Precursor Tablet",
+    "item": "Clear Skies",
+    "is_unique": true
+  },
+  {
+    "base_type": "Guarded Helm",
+    "item": "Erian's Cobble",
+    "is_unique": true
+  },
+  {
+    "base_type": "Lazuli Ring",
+    "item": "Doedre's Damning",
+    "is_unique": true
+  },
+  {
+    "base_type": "Exalted Orb",
+    "item": null,
+    "is_unique": false
+  },
+  {
+    "base_type": "Garment",
+    "item": "Tabula Rasa",
+    "is_unique": true
+  },
+  {
+    "base_type": "Gold",
+    "item": null,
+    "is_unique": false
+  },
+  {
+    "base_type": "Greater Essence of Haste",
+    "item": null,
+    "is_unique": false
+  },
+  {
+    "base_type": "Strife Pick",
+    "item": null,
+    "is_unique": false
+  },
+  {
+    "base_type": "Seal Relic",
+    "item": "The Changing Seasons",
+    "is_unique": true
+  },
+  {
+    "base_type": "Waystone (Tier 1)",
+    "item": null,
+    "is_unique": false
+  }
+]

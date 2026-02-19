@@ -1,0 +1,57 @@
+[
+  {
+    "base_type": "Aegis Tulgraft",
+    "item": null,
+    "is_unique": false
+  },
+  {
+    "base_type": "Ruby Ring",
+    "item": "Ahkeli's Meadow",
+    "is_unique": true
+  },
+  {
+    "base_type": "Broad Axe",
+    "item": null,
+    "is_unique": false
+  },
+  {
+    "base_type": "Chaos Orb",
+    "item": null,
+    "is_unique": false
+  },
+  {
+    "base_type": "Gold",
+    "item": null,
+    "is_unique": false
+  },
+  {
+    "base_type": "Nightmare Bascinet",
+    "item": "Devoto's Devotion",
+    "is_unique": true
+  },
+  {
+    "base_type": "Shore Map",
+    "item": null,
+    "is_unique": false
+  },
+  {
+    "base_type": "Simple Robe",
+    "item": "Tabula Rasa",
+    "is_unique": true
+  },
+  {
+    "base_type": "The Fortunate",
+    "item": null,
+    "is_unique": false
+  },
+  {
+    "base_type": "Blunt Arrow Quiver",
+    "item": "The Fracturing Spinner",
+    "is_unique": true
+  },
+  {
+    "base_type": "Vial of Transcendence",
+    "item": null,
+    "is_unique": false
+  }
+]

@@ -1,0 +1,24 @@
+fgdb should accomodate multiple threads for testing.  For this reason it will need concurrency and a static
+capability to create directories, etc.
+
+however, fgdb when built as a library for production use must not self initialize and create directories nor should it
+manage concurrency.  for this reason, the concurrency stuff should be gated behind a "test" config so that it's
+skipped when the library is built for production use.
+
+the env, dir and path stuff needs to be modified as well as assets.
+
+env should be:
+env
+  poex
+    prod
+    test1 through test5
+        then for each of these we have
+        db - database goes here
+        out - any output goes here
+
+cache should be
+cache
+  poex
+    json
+    ver
+      version.txt or manifest.txt - something used to identify what version of the json we have

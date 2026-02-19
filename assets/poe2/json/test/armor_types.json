@@ -1,0 +1,30 @@
+[
+  {
+    "base_type": "Full Plate",
+    "armor_type": "Plate"
+  },
+  {
+    "base_type": "Garment",
+    "armor_type": "Cloth"
+  },
+  {
+    "base_type": "Gleaming Cuffs",
+    "armor_type": "Chain"
+  },
+  {
+    "base_type": "Guarded Helm",
+    "armor_type": "Scale"
+  },
+  {
+    "base_type": "Leather Vest",
+    "armor_type": "Leather"
+  },
+  {
+    "base_type": "Sacrificial Regalia",
+    "armor_type": "Mail"
+  },
+  {
+    "base_type": "Wanderer Shoes",
+    "armor_type": "Padded"
+  }
+]

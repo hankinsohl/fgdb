@@ -1,0 +1,62 @@
+[
+  {
+    "sound": "Alarm",
+    "file_name": "alarm.wav",
+    "original_file_name": "316835__lalks__alarm-01-long.wav",
+    "source": "freesound",
+    "composer": "Lalks",
+    "is_modified": false,
+    "url": "https://freesound.org/people/Lalks/sounds/316835/",
+    "license": "Creative Commons Attribution 3.0"
+  },
+  {
+    "sound": "Angry Cat",
+    "file_name": "angry_cat.wav",
+    "original_file_name": "327438__softcoresoft__cat-angry-meow.wav",
+    "source": "freesound",
+    "composer": "softcoresoft",
+    "is_modified": true,
+    "url": "https://freesound.org/people/softcoresoft/sounds/327438/",
+    "license": "Creative Commons Attribution 4.0"
+  },
+  {
+    "sound": "Bear Growl",
+    "file_name": "bear_growl.wav",
+    "original_file_name": "519599__nivatius__grizzly-bear-growl-eating.mp3",
+    "source": "freesound",
+    "composer": "Nivatius",
+    "is_modified": true,
+    "url": "https://freesound.org/people/Nivatius/sounds/519599/",
+    "license": "Creative Commons 0"
+  },
+  {
+    "sound": "Bleating",
+    "file_name": "bleating.wav",
+    "original_file_name": "618865__milkotz__sheep-sound.mp3",
+    "source": "freesound",
+    "composer": "milkotz",
+    "is_modified": true,
+    "url": "https://freesound.org/people/milkotz/sounds/618865/",
+    "license": "Creative Commons 0"
+  },
+  {
+    "sound": "Wood Hit",
+    "file_name": "wood_hit.wav",
+    "original_file_name": "364691__alegemaate__wood-hit.wav",
+    "source": "freesound",
+    "composer": "alegemaate",
+    "is_modified": false,
+    "url": "https://freesound.org/people/alegemaate/sounds/364691/",
+    "license": "Creative Commons 0"
+  },
+  {
+    "sound": "Zombie Breath",
+    "file_name": "zombie_breath.wav",
+    "original_file_name": "169844__missozzy__zombie-03.wav",
+    "source": "freesound",
+    "composer": "missozzy",
+    "is_modified": false,
+    "url": "https://freesound.org/people/missozzy/sounds/169844/",
+    "license": "Creative Commons Attribution 3.0"
+  }
+]
