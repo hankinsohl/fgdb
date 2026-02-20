@@ -2,12 +2,29 @@
 // This software is licensed under the terms of the MIT License.
 // Created by Hankinsohl on 1/12/2026.
 
+#[cfg(feature = "std")]
 pub mod concurrency;
+
+#[cfg(feature = "std")]
 pub mod config;
+
+#[cfg(any(feature = "std", feature = "names"))]
 pub mod db;
+
+#[cfg(feature = "std")]
 pub mod fs;
+
+#[cfg(feature = "std")]
 pub mod init;
+
+#[cfg(feature = "std")]
 pub mod net;
+
+#[cfg(feature = "std")]
 pub mod types;
+
+#[cfg(feature = "std")]
 pub mod update;
+
+#[cfg(feature = "std")]
 pub mod util;

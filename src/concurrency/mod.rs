@@ -2,4 +2,5 @@
 // This software is licensed under the terms of the MIT License.
 // Created by Hankinsohl on 1/22/2026.
 
+#[cfg(test)]
 pub mod env_pool;

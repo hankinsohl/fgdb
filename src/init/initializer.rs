@@ -2,7 +2,9 @@
 // This software is licensed under the terms of the MIT License.
 // Created by Hankinsohl on 1/23/2026.
 
+#[cfg(test)]
 use crate::concurrency::env_pool::EnvPool;
+
 use crate::db::conn::Conn;
 use crate::db::database::{Database, TABLES};
 use crate::fs::dir::Dir;
@@ -10,13 +12,9 @@ use crate::fs::paths;
 use crate::fs::paths::Paths;
 use crate::types::game_variant::GameVariant;
 use crate::util::env::Env;
-use static_init::dynamic;
 use std::fs::File;
 use std::io::BufReader;
 use strum::IntoEnumIterator;
-
-#[dynamic]
-static INITIALIZER: Initializer = Initializer::new();
 
 pub struct Initializer;
 
@@ -30,6 +28,7 @@ impl Initializer {
     pub fn new() -> Self {
         Initializer::remove_env_out_dirs();
         Initializer::create_dirs();
+        #[cfg(test)]
         Initializer::init_env_pool();
         Initializer::init_database();
         Self {}
@@ -45,6 +44,7 @@ impl Initializer {
         }
     }
 
+    #[cfg(test)]
     fn init_env_pool() {
         EnvPool::init();
     }
@@ -81,4 +81,15 @@ impl Initializer {
             }
         }
     }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use static_init::dynamic;
+    
+    // The static initializer is used to ensure that the test databases are reset to an initial, known
+    // condition prior to running any tests.
+    #[dynamic]
+    static INITIALIZER: Initializer = Initializer::new();
 }
