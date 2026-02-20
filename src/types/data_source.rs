@@ -8,7 +8,7 @@ use std::fmt::Display;
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize)]
 pub enum DataSource {
-    // The JSON repository for the database is located on a local drive 
+    // The JSON repository for the database is located on a local drive
     Local,
 
     // JSON for the database is obtained from the web
@@ -27,4 +27,3 @@ impl Display for DataSource {
         )
     }
 }
-

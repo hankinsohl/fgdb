@@ -5,6 +5,7 @@
 use super::macros::*;
 use super::table::GenericTable;
 use super::table::Table;
+use crate::db::tables::names::BASE_TYPE_ITEMS;
 use crate::fs::dir::Dir;
 use crate::fs::paths::Paths;
 use crate::util::consts;
@@ -57,7 +58,7 @@ impl_generic_table!(BaseTypeItems);
 impl Table for BaseTypeItemsTable {
     fn new() -> Self {
         Self {
-            name: "base_type_items".to_string(),
+            name: BASE_TYPE_ITEMS.to_string(),
         }
     }
 

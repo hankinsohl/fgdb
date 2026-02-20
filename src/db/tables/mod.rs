@@ -13,5 +13,6 @@ pub mod crafting_categories;
 pub mod exchange_prices;
 pub mod licenses;
 pub mod macros;
+mod names;
 pub mod sounds;
 pub mod table;

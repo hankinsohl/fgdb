@@ -5,6 +5,7 @@
 use super::macros::*;
 use super::table::GenericTable;
 use super::table::Table;
+use crate::db::tables::names::SOUNDS;
 use crate::fs::dir::Dir;
 use crate::fs::paths::Paths;
 use crate::util::consts;
@@ -57,7 +58,7 @@ impl_generic_table!(Sounds);
 
 impl Table for SoundsTable {
     fn new() -> Self {
-        Self { name: "sounds".to_string() }
+        Self { name: SOUNDS.to_string() }
     }
 
     fn create(&self, tx: &mut Transaction) -> Result<(), Error> {

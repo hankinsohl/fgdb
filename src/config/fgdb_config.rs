@@ -2,6 +2,7 @@
 // This software is licensed under the terms of the MIT License.
 // Created by Hankinsohl on 1/16/2026.
 
+use crate::types::data_source::DataSource;
 use crate::types::game_variant::GameVariant;
 use crate::util::consts;
 use anyhow::{Error, Result};
@@ -9,7 +10,6 @@ use serde::Deserialize;
 use std::fs;
 use std::path::PathBuf;
 use std::sync::OnceLock;
-use crate::types::data_source::DataSource;
 
 static FGDB_CONFIG: OnceLock<FgdbConfig> = OnceLock::new();
 

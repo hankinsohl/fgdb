@@ -5,6 +5,7 @@
 use super::macros::*;
 use super::table::GenericTable;
 use super::table::Table;
+use crate::db::tables::names::CLASSES;
 use crate::fs::dir::Dir;
 use crate::fs::paths::Paths;
 use crate::types::non_unique_rarity::NonUniqueRarity;
@@ -42,7 +43,7 @@ impl_generic_table!(Classes);
 
 impl Table for ClassesTable {
     fn new() -> Self {
-        Self { name: "classes".to_string() }
+        Self { name: CLASSES.to_string() }
     }
 
     fn create(&self, tx: &mut Transaction) -> Result<(), Error> {

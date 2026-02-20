@@ -73,6 +73,7 @@ mod tests {
     use crate::db::tables::crafting_categories::CraftingCategoriesTable;
     use crate::db::tables::exchange_prices::ExchangePricesTable;
     use crate::db::tables::licenses::LicensesTable;
+    use crate::db::tables::names::*;
     use crate::db::tables::sounds::SoundsTable;
     use crate::fs::dir::Dir;
     use crate::fs::paths::Paths;
@@ -85,70 +86,70 @@ mod tests {
     #[dynamic]
     static TABLE_REGISTRY: [TableInfo; 11] = [
         TableInfo {
-            table: Box::new(CraftingCategoriesTable::new()),
-            name: "crafting_categories".to_string(),
-            expected_row_count_poe1: 20,
-            expected_row_count_poe2: 18,
-        },
-        TableInfo {
-            table: Box::new(ClassesTable::new()),
-            name: "classes".to_string(),
-            expected_row_count_poe1: 13,
-            expected_row_count_poe2: 13,
-        },
-        TableInfo {
-            table: Box::new(BaseTypesTable::new()),
-            name: "base_types".to_string(),
-            expected_row_count_poe1: 17,
-            expected_row_count_poe2: 16,
-        },
-        TableInfo {
-            table: Box::new(BaseTypeItemsTable::new()),
-            name: "base_type_items".to_string(),
-            expected_row_count_poe1: 11,
-            expected_row_count_poe2: 12,
+            table: Box::new(ActionSetsTable::new()),
+            name: ACTION_SETS.to_string(),
+            expected_row_count_poe1: 1,
+            expected_row_count_poe2: 1,
         },
         TableInfo {
             table: Box::new(ArmorTypesTable::new()),
-            name: "armor_types".to_string(),
+            name: ARMOR_TYPES.to_string(),
             expected_row_count_poe1: 7,
             expected_row_count_poe2: 7,
         },
         TableInfo {
             table: Box::new(AsyncPricesTable::new()),
-            name: "async_prices".to_string(),
+            name: ASYNC_PRICES.to_string(),
             expected_row_count_poe1: 4,
             expected_row_count_poe2: 5,
         },
         TableInfo {
-            table: Box::new(ExchangePricesTable::new()),
-            name: "exchange_prices".to_string(),
-            expected_row_count_poe1: 1,
-            expected_row_count_poe2: 1,
+            table: Box::new(BaseTypeItemsTable::new()),
+            name: BASE_TYPE_ITEMS.to_string(),
+            expected_row_count_poe1: 11,
+            expected_row_count_poe2: 12,
+        },
+        TableInfo {
+            table: Box::new(BaseTypesTable::new()),
+            name: BASE_TYPES.to_string(),
+            expected_row_count_poe1: 17,
+            expected_row_count_poe2: 16,
+        },
+        TableInfo {
+            table: Box::new(ClassesTable::new()),
+            name: CLASSES.to_string(),
+            expected_row_count_poe1: 13,
+            expected_row_count_poe2: 13,
         },
         TableInfo {
             table: Box::new(ColorsTable::new()),
-            name: "colors".to_string(),
+            name: COLORS.to_string(),
             expected_row_count_poe1: 14,
             expected_row_count_poe2: 14,
         },
         TableInfo {
+            table: Box::new(CraftingCategoriesTable::new()),
+            name: CRAFTING_CATEGORIES.to_string(),
+            expected_row_count_poe1: 20,
+            expected_row_count_poe2: 18,
+        },
+        TableInfo {
+            table: Box::new(ExchangePricesTable::new()),
+            name: EXCHANGE_PRICES.to_string(),
+            expected_row_count_poe1: 1,
+            expected_row_count_poe2: 1,
+        },
+        TableInfo {
             table: Box::new(LicensesTable::new()),
-            name: "licenses".to_string(),
+            name: LICENSES.to_string(),
             expected_row_count_poe1: 6,
             expected_row_count_poe2: 6,
         },
         TableInfo {
             table: Box::new(SoundsTable::new()),
-            name: "sounds".to_string(),
+            name: SOUNDS.to_string(),
             expected_row_count_poe1: 6,
             expected_row_count_poe2: 7,
-        },
-        TableInfo {
-            table: Box::new(ActionSetsTable::new()),
-            name: "action_sets".to_string(),
-            expected_row_count_poe1: 1,
-            expected_row_count_poe2: 1,
         },
     ];
 

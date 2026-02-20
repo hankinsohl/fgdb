@@ -5,6 +5,7 @@
 use super::macros::*;
 use super::table::GenericTable;
 use super::table::Table;
+use crate::db::tables::names::ARMOR_TYPES;
 use crate::fs::dir::Dir;
 use crate::fs::paths::Paths;
 use crate::types::armor_type::ArmorType;
@@ -39,9 +40,7 @@ impl_generic_table!(ArmorTypes);
 
 impl Table for ArmorTypesTable {
     fn new() -> Self {
-        Self {
-            name: "armor_types".to_string(),
-        }
+        Self { name: ARMOR_TYPES.to_string() }
     }
 
     fn create(&self, tx: &mut Transaction) -> Result<(), Error> {

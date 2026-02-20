@@ -5,6 +5,7 @@
 use super::macros::*;
 use super::table::GenericTable;
 use super::table::Table;
+use crate::db::tables::names::CRAFTING_CATEGORIES;
 use crate::fs::dir::Dir;
 use crate::fs::paths::Paths;
 use crate::types::non_unique_rarity::NonUniqueRarity;
@@ -40,7 +41,7 @@ impl_generic_table!(CraftingCategories);
 impl Table for CraftingCategoriesTable {
     fn new() -> Self {
         Self {
-            name: "crafting_categories".to_string(),
+            name: CRAFTING_CATEGORIES.to_string(),
         }
     }
 

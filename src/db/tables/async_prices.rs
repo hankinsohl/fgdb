@@ -6,6 +6,7 @@ use super::macros::*;
 use super::table::GenericTable;
 use super::table::Table;
 use crate::db::tables::base_type_items::BaseTypeItemsRow;
+use crate::db::tables::names::ASYNC_PRICES;
 use crate::fs::dir::Dir;
 use crate::fs::paths::Paths;
 use crate::types::gem_level::GemLevel;
@@ -25,6 +26,7 @@ use std::cmp::Ordering;
 use std::fs::File;
 use std::io;
 use std::io::{BufReader, Read, Write};
+
 // async_prices
 //     The async_prices table contains a list of in-game prices for items available for instant buyout or in-person
 //     trades.  It does not contain prices for items available on the auction house; these prices are recorded in the
@@ -33,7 +35,6 @@ use std::io::{BufReader, Read, Write};
 //     Trade_price_key is a composite formed as follows:
 //         <base_type>::<item>::<minimum_item_level>::<gem_level>::<rarity>
 //      If one of the key parts is null, the text "null" is used when forming the composite.
-
 #[derive(Debug, Deserialize, Serialize)]
 pub struct AsyncPricesRow {
     // The name of the base type.
@@ -107,7 +108,7 @@ impl_generic_table!(AsyncPrices);
 impl Table for AsyncPricesTable {
     fn new() -> Self {
         Self {
-            name: "async_prices".to_string(),
+            name: ASYNC_PRICES.to_string(),
         }
     }
 

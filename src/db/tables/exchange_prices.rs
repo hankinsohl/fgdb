@@ -5,6 +5,7 @@
 use super::macros::*;
 use super::table::GenericTable;
 use super::table::Table;
+use crate::db::tables::names::EXCHANGE_PRICES;
 use crate::fs::dir::Dir;
 use crate::fs::paths::Paths;
 use crate::types::price::Price;
@@ -65,7 +66,7 @@ impl_generic_table!(ExchangePrices);
 impl Table for ExchangePricesTable {
     fn new() -> Self {
         Self {
-            name: "exchange_prices".to_string(),
+            name: EXCHANGE_PRICES.to_string(),
         }
     }
 

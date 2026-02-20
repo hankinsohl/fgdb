@@ -5,6 +5,7 @@
 use super::macros::*;
 use super::table::GenericTable;
 use super::table::Table;
+use crate::db::tables::names::BASE_TYPES;
 use crate::fs::dir::Dir;
 use crate::fs::paths::Paths;
 use crate::types::liquidity::Liquidity;
@@ -58,9 +59,7 @@ impl_generic_table!(BaseTypes);
 
 impl Table for BaseTypesTable {
     fn new() -> Self {
-        Self {
-            name: "base_types".to_string(),
-        }
+        Self { name: BASE_TYPES.to_string() }
     }
 
     fn create(&self, tx: &mut Transaction) -> Result<(), Error> {

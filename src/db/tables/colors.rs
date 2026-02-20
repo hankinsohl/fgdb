@@ -5,6 +5,7 @@
 use super::macros::*;
 use super::table::GenericTable;
 use super::table::Table;
+use crate::db::tables::names::COLORS;
 use crate::fs::dir::Dir;
 use crate::fs::paths::Paths;
 use crate::util::consts;
@@ -42,7 +43,7 @@ impl_generic_table!(Colors);
 
 impl Table for ColorsTable {
     fn new() -> Self {
-        Self { name: "colors".to_string() }
+        Self { name: COLORS.to_string() }
     }
 
     fn create(&self, tx: &mut Transaction) -> Result<(), Error> {

@@ -6,10 +6,7 @@ use std::fmt;
 use std::fmt::Display;
 use strum_macros::EnumIter;
 
-pub static CACHE_DIRS: [Dir; 2] = [
-    Dir::CacheJson,
-    Dir::CacheVer,
-];
+pub static CACHE_DIRS: [Dir; 2] = [Dir::CacheJson, Dir::CacheVer];
 pub static ENV_DIRS: [Dir; 2] = [Dir::EnvDb, Dir::EnvOut];
 pub static ENV_OUT_DIRS: [Dir; 1] = [Dir::EnvOut];
 

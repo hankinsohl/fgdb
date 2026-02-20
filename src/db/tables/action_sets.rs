@@ -5,6 +5,7 @@
 use super::macros::*;
 use super::table::GenericTable;
 use super::table::Table;
+use crate::db::tables::names::ACTION_SETS;
 use crate::fs::dir::Dir;
 use crate::fs::paths::Paths;
 use crate::types::font_size::FontSize;
@@ -160,9 +161,7 @@ impl_generic_table!(ActionSets);
 
 impl Table for ActionSetsTable {
     fn new() -> Self {
-        Self {
-            name: "action_sets".to_string(),
-        }
+        Self { name: ACTION_SETS.to_string() }
     }
 
     fn create(&self, tx: &mut Transaction) -> Result<(), Error> {
