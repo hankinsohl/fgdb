@@ -1,12 +1,12 @@
 // Copyright (c) 2026 By David "Hankinsohl" Hankins.
 // This software is licensed under the terms of the MIT License.
-// Created by Hankinsohl on 1/19/2026.
+// Created by Hankinsohl on 2/2/2026.
 
 use super::macros::*;
 use super::table::GenericTable;
 use super::table::Table;
-use crate::db::rows::exchange_prices::ExchangePricesRow;
-use crate::db::tables::names::EXCHANGE_PRICES;
+use crate::db::rows::armor_types_row::ArmorTypesRow;
+use crate::db::tables::names::ARMOR_TYPES;
 use crate::fs::dir::Dir;
 use crate::fs::paths::Paths;
 use crate::util::consts;
@@ -21,25 +21,23 @@ use std::fs::File;
 use std::io;
 use std::io::{BufReader, Read, Write};
 
-pub struct ExchangePricesTable {
+pub struct ArmorTypesTable {
     pub name: String,
 }
 
-impl_generic_table!(ExchangePrices);
+impl_generic_table!(ArmorTypes);
 
-impl Table for ExchangePricesTable {
+impl Table for ArmorTypesTable {
     fn new() -> Self {
-        Self {
-            name: EXCHANGE_PRICES.to_string(),
-        }
+        Self { name: ARMOR_TYPES.to_string() }
     }
 
     fn create(&self, tx: &mut Transaction) -> Result<(), Error> {
         tx.execute(
-            "CREATE TABLE IF NOT EXISTS exchange_prices
+            "CREATE TABLE IF NOT EXISTS armor_types
                 (
-                    base_type           TEXT    NOT NULL PRIMARY KEY,
-                    price               REAL    NOT NULL               CHECK (price >= 0),
+                    base_type   TEXT NOT NULL PRIMARY KEY,
+                    armor_type  TEXT,
                     FOREIGN KEY (base_type) REFERENCES base_types (base_type)
                 ) STRICT",
             (),
@@ -48,25 +46,25 @@ impl Table for ExchangePricesTable {
     }
 
     fn export(&self, writer: &mut dyn Write, tx: &mut Transaction) -> Result<(), Error> {
-        let mut stmt = tx.prepare("SELECT * FROM exchange_prices")?;
-        let rows: Vec<ExchangePricesRow> = stmt
+        let mut stmt = tx.prepare("SELECT * FROM armor_types")?;
+        let rows: Vec<ArmorTypesRow> = stmt
             .query_map([], |row| {
-                Ok(ExchangePricesRow {
+                Ok(ArmorTypesRow {
                     base_type: row.get(0)?,
-                    price: row.get(1)?,
+                    armor_type: row.get(1)?,
                 })
             })?
-            .collect::<Result<Vec<ExchangePricesRow>, RusqliteError>>()?;
+            .collect::<Result<Vec<ArmorTypesRow>, RusqliteError>>()?;
         let json = JsonFormat::pretty().indent_width(Some(consts::JSON_TAB)).ascii(true).format_to_string(&rows)?;
         writer.write_all(json.as_bytes())?;
         Ok(())
     }
 
     fn import(&self, reader: &mut dyn Read, tx: &mut Transaction) -> Result<(), Error> {
-        let rows: Vec<ExchangePricesRow> = serde_json::from_reader(reader)?;
-        let mut stmt = tx.prepare_cached("INSERT OR IGNORE INTO exchange_prices (base_type, price) VALUES (?1, ?2)")?;
+        let rows: Vec<ArmorTypesRow> = serde_json::from_reader(reader)?;
+        let mut stmt = tx.prepare_cached("INSERT OR IGNORE INTO armor_types (base_type, armor_type) VALUES (?1, ?2)")?;
         for row in &rows {
-            stmt.execute(params![row.base_type, row.price,])?;
+            stmt.execute(params![row.base_type, row.armor_type])?;
         }
         Ok(())
     }

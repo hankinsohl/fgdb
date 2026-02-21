@@ -3,30 +3,30 @@
 // Created by Hankinsohl on 1/19/2026.
 
 #[cfg(feature = "std")]
-pub mod action_sets;
+pub mod action_sets_table;
 #[cfg(feature = "std")]
-pub mod armor_types;
+pub mod armor_types_table;
 #[cfg(feature = "std")]
-pub mod async_prices;
+pub mod async_prices_table;
 #[cfg(feature = "std")]
-pub mod base_type_items;
+pub mod base_type_items_table;
 #[cfg(feature = "std")]
-pub mod base_types;
+pub mod base_types_table;
 #[cfg(feature = "std")]
-pub mod classes;
+pub mod classes_table;
 #[cfg(feature = "std")]
-pub mod colors;
+pub mod colors_table;
 #[cfg(feature = "std")]
-pub mod crafting_categories;
+pub mod crafting_categories_table;
 #[cfg(feature = "std")]
-pub mod exchange_prices;
+pub mod exchange_prices_table;
 #[cfg(feature = "std")]
-pub mod licenses;
+pub mod licenses_table;
 #[cfg(feature = "std")]
 pub mod macros;
 #[cfg(any(feature = "std", feature = "names"))]
 pub mod names;
 #[cfg(feature = "std")]
-pub mod sounds;
+pub mod sounds_table;
 #[cfg(feature = "std")]
 pub mod table;

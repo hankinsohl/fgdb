@@ -5,7 +5,7 @@
 use super::macros::*;
 use super::table::GenericTable;
 use super::table::Table;
-use crate::db::rows::base_type_items::BaseTypeItemsRow;
+use crate::db::rows::base_type_items_row::BaseTypeItemsRow;
 use crate::db::tables::names::BASE_TYPE_ITEMS;
 use crate::fs::dir::Dir;
 use crate::fs::paths::Paths;

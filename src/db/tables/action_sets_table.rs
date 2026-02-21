@@ -5,7 +5,7 @@
 use super::macros::*;
 use super::table::GenericTable;
 use super::table::Table;
-use crate::db::rows::action_sets::ActionSetsRow;
+use crate::db::rows::action_sets_row::ActionSetsRow;
 use crate::db::tables::names::ACTION_SETS;
 use crate::fs::dir::Dir;
 use crate::fs::paths::Paths;

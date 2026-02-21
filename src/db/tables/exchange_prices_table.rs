@@ -1,12 +1,12 @@
 // Copyright (c) 2026 By David "Hankinsohl" Hankins.
 // This software is licensed under the terms of the MIT License.
-// Created by Hankinsohl on 2/17/2026.
+// Created by Hankinsohl on 1/19/2026.
 
 use super::macros::*;
 use super::table::GenericTable;
 use super::table::Table;
-use crate::db::rows::crafting_categories::CraftingCategoriesRow;
-use crate::db::tables::names::CRAFTING_CATEGORIES;
+use crate::db::rows::exchange_prices_row::ExchangePricesRow;
+use crate::db::tables::names::EXCHANGE_PRICES;
 use crate::fs::dir::Dir;
 use crate::fs::paths::Paths;
 use crate::util::consts;
@@ -21,25 +21,26 @@ use std::fs::File;
 use std::io;
 use std::io::{BufReader, Read, Write};
 
-pub struct CraftingCategoriesTable {
+pub struct ExchangePricesTable {
     pub name: String,
 }
 
-impl_generic_table!(CraftingCategories);
+impl_generic_table!(ExchangePrices);
 
-impl Table for CraftingCategoriesTable {
+impl Table for ExchangePricesTable {
     fn new() -> Self {
         Self {
-            name: CRAFTING_CATEGORIES.to_string(),
+            name: EXCHANGE_PRICES.to_string(),
         }
     }
 
     fn create(&self, tx: &mut Transaction) -> Result<(), Error> {
         tx.execute(
-            "CREATE TABLE IF NOT EXISTS crafting_categories
+            "CREATE TABLE IF NOT EXISTS exchange_prices
                 (
-                    crafting_category TEXT NOT NULL PRIMARY KEY,
-                    highest_rarity    TEXT NOT NULL
+                    base_type           TEXT    NOT NULL PRIMARY KEY,
+                    price               REAL    NOT NULL               CHECK (price >= 0),
+                    FOREIGN KEY (base_type) REFERENCES base_types (base_type)
                 ) STRICT",
             (),
         )?;
@@ -47,25 +48,25 @@ impl Table for CraftingCategoriesTable {
     }
 
     fn export(&self, writer: &mut dyn Write, tx: &mut Transaction) -> Result<(), Error> {
-        let mut stmt = tx.prepare("SELECT * FROM crafting_categories")?;
-        let rows: Vec<CraftingCategoriesRow> = stmt
+        let mut stmt = tx.prepare("SELECT * FROM exchange_prices")?;
+        let rows: Vec<ExchangePricesRow> = stmt
             .query_map([], |row| {
-                Ok(CraftingCategoriesRow {
-                    crafting_category: row.get(0)?,
-                    highest_rarity: row.get(1)?,
+                Ok(ExchangePricesRow {
+                    base_type: row.get(0)?,
+                    price: row.get(1)?,
                 })
             })?
-            .collect::<Result<Vec<CraftingCategoriesRow>, RusqliteError>>()?;
+            .collect::<Result<Vec<ExchangePricesRow>, RusqliteError>>()?;
         let json = JsonFormat::pretty().indent_width(Some(consts::JSON_TAB)).ascii(true).format_to_string(&rows)?;
         writer.write_all(json.as_bytes())?;
         Ok(())
     }
 
     fn import(&self, reader: &mut dyn Read, tx: &mut Transaction) -> Result<(), Error> {
-        let rows: Vec<CraftingCategoriesRow> = serde_json::from_reader(reader)?;
-        let mut stmt = tx.prepare_cached("INSERT OR IGNORE INTO crafting_categories (crafting_category, highest_rarity) VALUES (?1, ?2)")?;
+        let rows: Vec<ExchangePricesRow> = serde_json::from_reader(reader)?;
+        let mut stmt = tx.prepare_cached("INSERT OR IGNORE INTO exchange_prices (base_type, price) VALUES (?1, ?2)")?;
         for row in &rows {
-            stmt.execute(params![row.crafting_category, row.highest_rarity.to_string()])?;
+            stmt.execute(params![row.base_type, row.price,])?;
         }
         Ok(())
     }

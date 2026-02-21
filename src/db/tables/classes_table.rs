@@ -1,12 +1,12 @@
 // Copyright (c) 2026 By David "Hankinsohl" Hankins.
 // This software is licensed under the terms of the MIT License.
-// Created by Hankinsohl on 2/2/2026.
+// Created by Hankinsohl on 1/19/2026.
 
 use super::macros::*;
 use super::table::GenericTable;
 use super::table::Table;
-use crate::db::rows::armor_types::ArmorTypesRow;
-use crate::db::tables::names::ARMOR_TYPES;
+use crate::db::rows::classes_row::ClassesRow;
+use crate::db::tables::names::CLASSES;
 use crate::fs::dir::Dir;
 use crate::fs::paths::Paths;
 use crate::util::consts;
@@ -21,24 +21,23 @@ use std::fs::File;
 use std::io;
 use std::io::{BufReader, Read, Write};
 
-pub struct ArmorTypesTable {
+pub struct ClassesTable {
     pub name: String,
 }
 
-impl_generic_table!(ArmorTypes);
+impl_generic_table!(Classes);
 
-impl Table for ArmorTypesTable {
+impl Table for ClassesTable {
     fn new() -> Self {
-        Self { name: ARMOR_TYPES.to_string() }
+        Self { name: CLASSES.to_string() }
     }
 
     fn create(&self, tx: &mut Transaction) -> Result<(), Error> {
         tx.execute(
-            "CREATE TABLE IF NOT EXISTS armor_types
+            "CREATE TABLE IF NOT EXISTS classes
                 (
-                    base_type   TEXT NOT NULL PRIMARY KEY,
-                    armor_type  TEXT,
-                    FOREIGN KEY (base_type) REFERENCES base_types (base_type)
+                    class          TEXT NOT NULL PRIMARY KEY,
+                    highest_rarity TEXT
                 ) STRICT",
             (),
         )?;
@@ -46,25 +45,25 @@ impl Table for ArmorTypesTable {
     }
 
     fn export(&self, writer: &mut dyn Write, tx: &mut Transaction) -> Result<(), Error> {
-        let mut stmt = tx.prepare("SELECT * FROM armor_types")?;
-        let rows: Vec<ArmorTypesRow> = stmt
+        let mut stmt = tx.prepare("SELECT * FROM classes")?;
+        let rows: Vec<ClassesRow> = stmt
             .query_map([], |row| {
-                Ok(ArmorTypesRow {
-                    base_type: row.get(0)?,
-                    armor_type: row.get(1)?,
+                Ok(ClassesRow {
+                    class: row.get(0)?,
+                    highest_rarity: row.get(1)?,
                 })
             })?
-            .collect::<Result<Vec<ArmorTypesRow>, RusqliteError>>()?;
+            .collect::<Result<Vec<ClassesRow>, RusqliteError>>()?;
         let json = JsonFormat::pretty().indent_width(Some(consts::JSON_TAB)).ascii(true).format_to_string(&rows)?;
         writer.write_all(json.as_bytes())?;
         Ok(())
     }
 
     fn import(&self, reader: &mut dyn Read, tx: &mut Transaction) -> Result<(), Error> {
-        let rows: Vec<ArmorTypesRow> = serde_json::from_reader(reader)?;
-        let mut stmt = tx.prepare_cached("INSERT OR IGNORE INTO armor_types (base_type, armor_type) VALUES (?1, ?2)")?;
+        let rows: Vec<ClassesRow> = serde_json::from_reader(reader)?;
+        let mut stmt = tx.prepare_cached("INSERT OR IGNORE INTO classes (class, highest_rarity) VALUES (?1, ?2)")?;
         for row in &rows {
-            stmt.execute(params![row.base_type, row.armor_type])?;
+            stmt.execute(params![row.class, row.highest_rarity])?;
         }
         Ok(())
     }

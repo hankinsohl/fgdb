@@ -5,7 +5,7 @@
 use super::macros::*;
 use super::table::GenericTable;
 use super::table::Table;
-use crate::db::rows::colors::ColorsRow;
+use crate::db::rows::colors_row::ColorsRow;
 use crate::db::tables::names::COLORS;
 use crate::fs::dir::Dir;
 use crate::fs::paths::Paths;

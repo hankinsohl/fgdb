@@ -5,7 +5,7 @@
 use super::macros::*;
 use super::table::GenericTable;
 use super::table::Table;
-use crate::db::rows::sounds::SoundsRow;
+use crate::db::rows::sounds_row::SoundsRow;
 use crate::db::tables::names::SOUNDS;
 use crate::fs::dir::Dir;
 use crate::fs::paths::Paths;

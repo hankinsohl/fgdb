@@ -1,12 +1,12 @@
 // Copyright (c) 2026 By David "Hankinsohl" Hankins.
 // This software is licensed under the terms of the MIT License.
-// Created by Hankinsohl on 1/19/2026.
+// Created by Hankinsohl on 2/17/2026.
 
 use super::macros::*;
 use super::table::GenericTable;
 use super::table::Table;
-use crate::db::rows::licenses::LicensesRow;
-use crate::db::tables::names::LICENSES;
+use crate::db::rows::crafting_categories_row::CraftingCategoriesRow;
+use crate::db::tables::names::CRAFTING_CATEGORIES;
 use crate::fs::dir::Dir;
 use crate::fs::paths::Paths;
 use crate::util::consts;
@@ -15,31 +15,31 @@ use anyhow::{Error, Result};
 use itertools::Itertools;
 use paste::paste;
 use rand::Rng;
-use rusqlite::types::Type;
 use rusqlite::{params, Error as RusqliteError, Transaction};
 use serde_json_fmt::JsonFormat;
 use std::fs::File;
 use std::io;
 use std::io::{BufReader, Read, Write};
-use url::Url;
 
-pub struct LicensesTable {
+pub struct CraftingCategoriesTable {
     pub name: String,
 }
 
-impl_generic_table!(Licenses);
+impl_generic_table!(CraftingCategories);
 
-impl Table for LicensesTable {
+impl Table for CraftingCategoriesTable {
     fn new() -> Self {
-        Self { name: LICENSES.to_string() }
+        Self {
+            name: CRAFTING_CATEGORIES.to_string(),
+        }
     }
 
     fn create(&self, tx: &mut Transaction) -> Result<(), Error> {
         tx.execute(
-            "CREATE TABLE IF NOT EXISTS licenses
+            "CREATE TABLE IF NOT EXISTS crafting_categories
                 (
-                    license TEXT NOT NULL PRIMARY KEY,
-                    url     TEXT NOT NULL
+                    crafting_category TEXT NOT NULL PRIMARY KEY,
+                    highest_rarity    TEXT NOT NULL
                 ) STRICT",
             (),
         )?;
@@ -47,25 +47,25 @@ impl Table for LicensesTable {
     }
 
     fn export(&self, writer: &mut dyn Write, tx: &mut Transaction) -> Result<(), Error> {
-        let mut stmt = tx.prepare("SELECT * FROM licenses")?;
-        let rows: Vec<LicensesRow> = stmt
+        let mut stmt = tx.prepare("SELECT * FROM crafting_categories")?;
+        let rows: Vec<CraftingCategoriesRow> = stmt
             .query_map([], |row| {
-                Ok(LicensesRow {
-                    license: row.get(0)?,
-                    url: Url::parse(&row.get::<usize, String>(1)?).map_err(|e| RusqliteError::FromSqlConversionFailure(1, Type::Text, Box::new(e)))?,
+                Ok(CraftingCategoriesRow {
+                    crafting_category: row.get(0)?,
+                    highest_rarity: row.get(1)?,
                 })
             })?
-            .collect::<Result<Vec<LicensesRow>, RusqliteError>>()?;
+            .collect::<Result<Vec<CraftingCategoriesRow>, RusqliteError>>()?;
         let json = JsonFormat::pretty().indent_width(Some(consts::JSON_TAB)).ascii(true).format_to_string(&rows)?;
         writer.write_all(json.as_bytes())?;
         Ok(())
     }
 
     fn import(&self, reader: &mut dyn Read, tx: &mut Transaction) -> Result<(), Error> {
-        let rows: Vec<LicensesRow> = serde_json::from_reader(reader)?;
-        let mut stmt = tx.prepare_cached("INSERT OR IGNORE INTO licenses (license, url) VALUES (?1, ?2)")?;
+        let rows: Vec<CraftingCategoriesRow> = serde_json::from_reader(reader)?;
+        let mut stmt = tx.prepare_cached("INSERT OR IGNORE INTO crafting_categories (crafting_category, highest_rarity) VALUES (?1, ?2)")?;
         for row in &rows {
-            stmt.execute(params![row.license, row.url.to_string()])?;
+            stmt.execute(params![row.crafting_category, row.highest_rarity.to_string()])?;
         }
         Ok(())
     }

@@ -2,17 +2,17 @@
 // This software is licensed under the terms of the MIT License.
 // Created by Hankinsohl on 1/21/2026.
 
-use crate::db::tables::action_sets::ActionSetsTable;
-use crate::db::tables::armor_types::ArmorTypesTable;
-use crate::db::tables::async_prices::AsyncPricesTable;
-use crate::db::tables::base_type_items::BaseTypeItemsTable;
-use crate::db::tables::base_types::BaseTypesTable;
-use crate::db::tables::classes::ClassesTable;
-use crate::db::tables::colors::ColorsTable;
-use crate::db::tables::crafting_categories::CraftingCategoriesTable;
-use crate::db::tables::exchange_prices::ExchangePricesTable;
-use crate::db::tables::licenses::LicensesTable;
-use crate::db::tables::sounds::SoundsTable;
+use crate::db::tables::action_sets_table::ActionSetsTable;
+use crate::db::tables::armor_types_table::ArmorTypesTable;
+use crate::db::tables::async_prices_table::AsyncPricesTable;
+use crate::db::tables::base_type_items_table::BaseTypeItemsTable;
+use crate::db::tables::base_types_table::BaseTypesTable;
+use crate::db::tables::classes_table::ClassesTable;
+use crate::db::tables::colors_table::ColorsTable;
+use crate::db::tables::crafting_categories_table::CraftingCategoriesTable;
+use crate::db::tables::exchange_prices_table::ExchangePricesTable;
+use crate::db::tables::licenses_table::LicensesTable;
+use crate::db::tables::sounds_table::SoundsTable;
 use crate::db::tables::table::Table;
 use anyhow::{Error, Result};
 use rusqlite::Transaction;

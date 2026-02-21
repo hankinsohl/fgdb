@@ -5,8 +5,8 @@
 use super::macros::*;
 use super::table::GenericTable;
 use super::table::Table;
-use crate::db::rows::async_prices::AsyncPricesRow;
-use crate::db::rows::base_type_items::BaseTypeItemsRow;
+use crate::db::rows::async_prices_row::AsyncPricesRow;
+use crate::db::rows::base_type_items_row::BaseTypeItemsRow;
 use crate::db::tables::names::ASYNC_PRICES;
 use crate::fs::dir::Dir;
 use crate::fs::paths::Paths;
