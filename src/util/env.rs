@@ -8,7 +8,7 @@ use std::fmt::Display;
 use strum::IntoEnumIterator;
 use strum_macros::EnumIter;
 
-static PROD_ENV: usize = Env::Prod as usize;
+//static PROD_ENV: usize = Env::Prod as usize;
 
 static FIRST_TEST_ENV: usize = Env::Test1 as usize;
 static LAST_TEST_ENV: usize = Env::Test5 as usize;

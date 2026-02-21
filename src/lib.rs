@@ -3,27 +3,39 @@
 // Created by Hankinsohl on 1/12/2026.
 
 #[cfg(any(feature = "std", feature = "errors"))]
-pub use util::errors;
+pub use util::errors::{FgdbDatFileError, FgdbFromSqlError, FgdbParseError, FgdbRangeError};
 
 #[cfg(any(feature = "std", feature = "names"))]
-pub use db::tables::names;
+pub use db::tables::names::*;
 
 #[cfg(any(feature = "std", feature = "rows"))]
 pub use db::rows::{
-    action_sets_row,
-    armor_types_row,
-    async_prices_row,
-    base_type_items_row,
-    base_types_row,
-    classes_row,
-    crafting_categories_row,
-    exchange_prices_row,
-    licenses_row,
-    sounds_row,
+    action_sets_row::ActionSetsRow,
+    action_sets_row::ActionSetsRowBuilder,
+    armor_types_row::ArmorTypesRow,
+    async_prices_row::AsyncPricesRow,
+    base_type_items_row::BaseTypeItemsRow,
+    base_types_row::BaseTypesRow,
+    classes_row::ClassesRow,
+    crafting_categories_row::CraftingCategoriesRow,
+    exchange_prices_row::ExchangePricesRow,
+    licenses_row::LicensesRow,
+    sounds_row::SoundsRow,
 };
 
 #[cfg(feature = "std")]
-pub use db::tables::*;
+pub use db::tables::{
+    action_sets_table::ActionSetsTable,
+    armor_types_table::ArmorTypesTable,
+    async_prices_table::AsyncPricesTable,
+    base_type_items_table::BaseTypeItemsTable,
+    base_types_table::BaseTypesTable,
+    classes_table::ClassesTable,
+    crafting_categories_table::CraftingCategoriesTable,
+    exchange_prices_table::ExchangePricesTable,
+    licenses_table::LicensesTable,
+    sounds_table::SoundsTable,
+};
 
 #[cfg(feature = "std")]
 pub mod concurrency;
