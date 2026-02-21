@@ -2,7 +2,7 @@
 // This software is licensed under the terms of the MIT License.
 // Created by Hankinsohl on 2/7/2026.
 
-use crate::util::error::RangeError;
+use crate::util::errors::FgdbRangeError;
 use anyhow::Result;
 use rusqlite::types::{FromSql, FromSqlError, FromSqlResult, ToSqlOutput, ValueRef};
 use rusqlite::{Result as RusqliteResult, ToSql};
@@ -39,9 +39,9 @@ impl ToSql for GemLevel {
 }
 
 impl GemLevel {
-    pub fn new(level: u8) -> Result<Self, RangeError> {
+    pub fn new(level: u8) -> Result<Self, FgdbRangeError> {
         if !GEM_LEVEL_RANGE.contains(&level) {
-            return Err(RangeError::GemLevel(MIN_GEM_LEVEL, MAX_GEM_LEVEL, level));
+            return Err(FgdbRangeError::GemLevel(MIN_GEM_LEVEL, MAX_GEM_LEVEL, level));
         }
         Ok(Self { level })
     }
@@ -54,7 +54,7 @@ impl GemLevel {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::util::error::RangeError;
+    use crate::util::errors::FgdbRangeError;
 
     #[test]
     fn test_gem_level_new_works_with_valid_level() {
@@ -65,6 +65,6 @@ mod tests {
     #[test]
     fn test_gem_level_new_generates_error_with_invalid_level() {
         let result = GemLevel::new(0);
-        assert!(matches!(result, Err(RangeError::GemLevel(MIN_GEM_LEVEL, MAX_GEM_LEVEL, 0))));
+        assert!(matches!(result, Err(FgdbRangeError::GemLevel(MIN_GEM_LEVEL, MAX_GEM_LEVEL, 0))));
     }
 }

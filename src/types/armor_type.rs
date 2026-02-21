@@ -2,7 +2,7 @@
 // This software is licensed under the terms of the MIT License.
 // Created by Hankinsohl on 2/2/2026.
 
-use crate::util::error::ParseError;
+use crate::util::errors::FgdbParseError;
 use anyhow::Result;
 use rusqlite::types::{FromSql, FromSqlError, FromSqlResult, ToSqlOutput, ValueRef};
 use rusqlite::{Result as RusqliteResult, ToSql};
@@ -60,8 +60,8 @@ impl FromSql for ArmorType {
 }
 
 impl FromStr for ArmorType {
-    type Err = ParseError;
-    fn from_str(s: &str) -> Result<ArmorType, ParseError> {
+    type Err = FgdbParseError;
+    fn from_str(s: &str) -> Result<ArmorType, FgdbParseError> {
         match s {
             "Chain" => Ok(ArmorType::Chain),
             "Cloth" => Ok(ArmorType::Cloth),
@@ -70,7 +70,7 @@ impl FromStr for ArmorType {
             "Padded" => Ok(ArmorType::Padded),
             "Plate" => Ok(ArmorType::Plate),
             "Scale" => Ok(ArmorType::Scale),
-            _ => Err(ParseError::InvalidArmorType(s.to_string())),
+            _ => Err(FgdbParseError::InvalidArmorType(s.to_string())),
         }
     }
 }
@@ -119,7 +119,7 @@ mod tests {
 
     #[test]
     fn test_from_str_with_invalid_input_yields_parse_error_invalid_liquidity() {
-        assert!(matches!(ArmorType::from_str("mail"), Err(ParseError::InvalidArmorType(_))));
-        assert!(matches!(ArmorType::from_str("Ringmail"), Err(ParseError::InvalidArmorType(_))));
+        assert!(matches!(ArmorType::from_str("mail"), Err(FgdbParseError::InvalidArmorType(_))));
+        assert!(matches!(ArmorType::from_str("Ringmail"), Err(FgdbParseError::InvalidArmorType(_))));
     }
 }

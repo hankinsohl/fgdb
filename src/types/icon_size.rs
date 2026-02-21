@@ -2,7 +2,7 @@
 // This software is licensed under the terms of the MIT License.
 // Created by Hankinsohl on 2/6/2026.
 
-use crate::util::error::RangeError;
+use crate::util::errors::FgdbRangeError;
 use anyhow::Result;
 use rusqlite::types::{FromSql, FromSqlError, FromSqlResult, ToSqlOutput, ValueRef};
 use rusqlite::{Result as RusqliteResult, ToSql};
@@ -39,9 +39,9 @@ impl ToSql for IconSize {
 }
 
 impl IconSize {
-    pub fn new(size: u8) -> Result<Self, RangeError> {
+    pub fn new(size: u8) -> Result<Self, FgdbRangeError> {
         if !ICON_SIZE_RANGE.contains(&size) {
-            return Err(RangeError::IconSize(MIN_ICON_SIZE, MAX_ICON_SIZE, size));
+            return Err(FgdbRangeError::IconSize(MIN_ICON_SIZE, MAX_ICON_SIZE, size));
         }
         Ok(Self { size })
     }
@@ -54,7 +54,7 @@ impl IconSize {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::util::error::RangeError;
+    use crate::util::errors::FgdbRangeError;
 
     #[test]
     fn test_icon_size_new_works_with_valid_icon_size() {
@@ -65,6 +65,6 @@ mod tests {
     #[test]
     fn test_icon_size_new_generates_error_with_invalid_icon_size() {
         let result = IconSize::new(6);
-        assert!(matches!(result, Err(RangeError::IconSize(MIN_ICON_SIZE, MAX_ICON_SIZE, 6))));
+        assert!(matches!(result, Err(FgdbRangeError::IconSize(MIN_ICON_SIZE, MAX_ICON_SIZE, 6))));
     }
 }

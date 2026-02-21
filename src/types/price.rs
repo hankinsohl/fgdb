@@ -2,7 +2,7 @@
 // This software is licensed under the terms of the MIT License.
 // Created by Hankinsohl on 2/7/2026.
 
-use crate::util::error::RangeError;
+use crate::util::errors::FgdbRangeError;
 use anyhow::Result;
 use rusqlite::types::{FromSql, FromSqlError, FromSqlResult, ToSqlOutput, ValueRef};
 use rusqlite::{Result as RusqliteResult, ToSql};
@@ -36,9 +36,9 @@ impl ToSql for Price {
 }
 
 impl Price {
-    pub fn new(price: f32) -> Result<Self, RangeError> {
+    pub fn new(price: f32) -> Result<Self, FgdbRangeError> {
         if price < MIN_PRICE {
-            return Err(RangeError::Price(price));
+            return Err(FgdbRangeError::Price(price));
         }
         Ok(Self { price })
     }
@@ -51,7 +51,7 @@ impl Price {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::util::error::RangeError;
+    use crate::util::errors::FgdbRangeError;
 
     #[test]
     fn test_price_new_works_with_valid_price() {
@@ -62,6 +62,6 @@ mod tests {
     #[test]
     fn test_price_new_generates_error_with_invalid_price() {
         let result = Price::new(-10.2);
-        assert!(matches!(result, Err(RangeError::Price(-10.2))));
+        assert!(matches!(result, Err(FgdbRangeError::Price(-10.2))));
     }
 }

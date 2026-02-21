@@ -34,6 +34,3 @@ pub const GAME_VARIANT_POE2: &str = "poe2";
 
 // Width in spaces for a JSON tab.
 pub const JSON_TAB: usize = 2;
-
-// User-agent sent when making web requests
-pub const USER_AGENT: &str = "fgdb";

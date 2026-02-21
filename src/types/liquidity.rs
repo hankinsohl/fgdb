@@ -2,7 +2,7 @@
 // This software is licensed under the terms of the MIT License.
 // Created by Hankinsohl on 1/30/2026.
 
-use crate::util::error::ParseError;
+use crate::util::errors::FgdbParseError;
 use anyhow::Result;
 use rusqlite::types::{FromSql, FromSqlError, FromSqlResult, ToSqlOutput, ValueRef};
 use rusqlite::{Result as RusqliteResult, ToSql};
@@ -39,13 +39,13 @@ impl FromSql for Liquidity {
 }
 
 impl FromStr for Liquidity {
-    type Err = ParseError;
-    fn from_str(s: &str) -> Result<Liquidity, ParseError> {
+    type Err = FgdbParseError;
+    fn from_str(s: &str) -> Result<Liquidity, FgdbParseError> {
         match s {
             "Exchange" => Ok(Liquidity::Exchange),
             "Async" => Ok(Liquidity::Async),
             "Untradable" => Ok(Liquidity::Untradable),
-            _ => Err(ParseError::InvalidLiquidity(s.to_string())),
+            _ => Err(FgdbParseError::InvalidLiquidity(s.to_string())),
         }
     }
 }
@@ -69,7 +69,7 @@ mod tests {
 
     #[test]
     fn test_from_str_with_invalid_input_yields_parse_error_invalid_liquidity() {
-        assert!(matches!(Liquidity::from_str("Auction"), Err(ParseError::InvalidLiquidity(_))));
-        assert!(matches!(Liquidity::from_str("in person"), Err(ParseError::InvalidLiquidity(_))));
+        assert!(matches!(Liquidity::from_str("Auction"), Err(FgdbParseError::InvalidLiquidity(_))));
+        assert!(matches!(Liquidity::from_str("in person"), Err(FgdbParseError::InvalidLiquidity(_))));
     }
 }

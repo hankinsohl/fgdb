@@ -2,7 +2,7 @@
 // This software is licensed under the terms of the MIT License.
 // Created by Hankinsohl on 2/3/2026.
 
-use crate::util::error::ParseError;
+use crate::util::errors::FgdbParseError;
 use anyhow::Result;
 use rusqlite::types::{FromSql, FromSqlError, FromSqlResult, ToSqlOutput, ValueRef};
 use rusqlite::Result as RusqliteResult;
@@ -58,8 +58,8 @@ impl FromSql for IconShape {
 }
 
 impl FromStr for IconShape {
-    type Err = ParseError;
-    fn from_str(s: &str) -> Result<IconShape, ParseError> {
+    type Err = FgdbParseError;
+    fn from_str(s: &str) -> Result<IconShape, FgdbParseError> {
         match s {
             "Circle" => Ok(IconShape::Circle),
             "Cross" => Ok(IconShape::Cross),
@@ -73,7 +73,7 @@ impl FromStr for IconShape {
             "Star" => Ok(IconShape::Star),
             "Triangle" => Ok(IconShape::Triangle),
             "UpsideDownHouse" => Ok(IconShape::UpsideDownHouse),
-            _ => Err(ParseError::InvalidIconShape(s.to_string())),
+            _ => Err(FgdbParseError::InvalidIconShape(s.to_string())),
         }
     }
 }

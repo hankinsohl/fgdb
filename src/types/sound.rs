@@ -4,7 +4,7 @@
 
 use crate::types::sound_volume::SoundVolume;
 use crate::types::stock_sound::StockSound;
-use crate::util::error::FromSqlError;
+use crate::util::errors::FgdbFromSqlError;
 use anyhow::Result;
 use rusqlite::Error as RusqliteError;
 use serde::{Deserialize, Serialize};
@@ -28,11 +28,11 @@ impl Sound {
     pub fn from_sql(volume: Option<SoundVolume>, stock_sound: Option<String>, custom_sound: Option<String>) -> Result<Option<Self>, RusqliteError> {
         if stock_sound.is_none() && custom_sound.is_none() {
             if volume.is_some() {
-                return Err(FromSqlError::Sound("stock_sound and custom_sound are None but volume is Some".to_string()).into());
+                return Err(FgdbFromSqlError::Sound("stock_sound and custom_sound are None but volume is Some".to_string()).into());
             }
             Ok(None)
         } else if stock_sound.is_some() && custom_sound.is_some() {
-            Err(FromSqlError::Sound("stock_sound and custom_sound are both Some".to_string()).into())
+            Err(FgdbFromSqlError::Sound("stock_sound and custom_sound are both Some".to_string()).into())
         } else if let Some(s) = stock_sound {
             Ok(Some(Sound {
                 volume,

@@ -7,4 +7,4 @@ pub mod consts;
 #[cfg(feature = "std")]
 pub mod env;
 #[cfg(any(feature = "std", feature = "errors"))]
-pub mod error;
+pub mod errors;

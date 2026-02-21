@@ -2,7 +2,7 @@
 // This software is licensed under the terms of the MIT License.
 // Created by Hankinsohl on 2/3/2026.
 
-use crate::util::error::ParseError;
+use crate::util::errors::FgdbParseError;
 use anyhow::Result;
 use rusqlite::types::{FromSql, FromSqlError, FromSqlResult, ToSqlOutput, ValueRef};
 use rusqlite::{Result as RusqliteResult, ToSql};
@@ -101,8 +101,8 @@ impl FromSql for StockSound {
 }
 
 impl FromStr for StockSound {
-    type Err = ParseError;
-    fn from_str(s: &str) -> Result<StockSound, ParseError> {
+    type Err = FgdbParseError;
+    fn from_str(s: &str) -> Result<StockSound, FgdbParseError> {
         match s {
             "1" => Ok(StockSound::Sh1),
             "2" => Ok(StockSound::Sh2),
@@ -130,7 +130,7 @@ impl FromStr for StockSound {
             "ShMirror" => Ok(StockSound::ShMirror),
             "ShRegal" => Ok(StockSound::ShRegal),
             "ShVaal" => Ok(StockSound::ShVaal),
-            _ => Err(ParseError::InvalidStockSound(s.to_string())),
+            _ => Err(FgdbParseError::InvalidStockSound(s.to_string())),
         }
     }
 }
@@ -177,7 +177,7 @@ mod tests {
 
     #[test]
     fn test_from_str_with_invalid_input_yields_parse_error_invalid_stock_sound() {
-        assert!(matches!(StockSound::from_str("17"), Err(ParseError::InvalidStockSound(_))));
-        assert!(matches!(StockSound::from_str("ShGold"), Err(ParseError::InvalidStockSound(_))));
+        assert!(matches!(StockSound::from_str("17"), Err(FgdbParseError::InvalidStockSound(_))));
+        assert!(matches!(StockSound::from_str("ShGold"), Err(FgdbParseError::InvalidStockSound(_))));
     }
 }

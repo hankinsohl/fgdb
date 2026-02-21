@@ -2,7 +2,7 @@
 // This software is licensed under the terms of the MIT License.
 // Created by Hankinsohl on 2/6/2026.
 
-use crate::util::error::RangeError;
+use crate::util::errors::FgdbRangeError;
 use anyhow::Result;
 use rusqlite::types::{FromSql, FromSqlError, FromSqlResult, ToSqlOutput, ValueRef};
 use rusqlite::{Result as RusqliteResult, ToSql};
@@ -39,9 +39,9 @@ impl ToSql for FontSize {
 }
 
 impl FontSize {
-    pub fn new(size: u8) -> Result<Self, RangeError> {
+    pub fn new(size: u8) -> Result<Self, FgdbRangeError> {
         if !FONT_SIZE_RANGE.contains(&size) {
-            return Err(RangeError::FontSize(MIN_FONT_SIZE, MAX_FONT_SIZE, size));
+            return Err(FgdbRangeError::FontSize(MIN_FONT_SIZE, MAX_FONT_SIZE, size));
         }
         Ok(Self { size })
     }
@@ -54,7 +54,7 @@ impl FontSize {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::util::error::RangeError;
+    use crate::util::errors::FgdbRangeError;
 
     #[test]
     fn test_font_size_new_works_with_valid_font_size() {
@@ -65,6 +65,6 @@ mod tests {
     #[test]
     fn test_font_size_new_generates_error_with_invalid_font_size() {
         let result = FontSize::new(66);
-        assert!(matches!(result, Err(RangeError::FontSize(MIN_FONT_SIZE, MAX_FONT_SIZE, 66))));
+        assert!(matches!(result, Err(FgdbRangeError::FontSize(MIN_FONT_SIZE, MAX_FONT_SIZE, 66))));
     }
 }

@@ -2,7 +2,7 @@
 // This software is licensed under the terms of the MIT License.
 // Created by Hankinsohl on 1/19/2026.
 
-use crate::util::error::ParseError;
+use crate::util::errors::FgdbParseError;
 use anyhow::Result;
 use rusqlite::types::{FromSql, FromSqlError, FromSqlResult, ToSqlOutput, ValueRef};
 use rusqlite::{Result as RusqliteResult, ToSql};
@@ -41,14 +41,14 @@ impl FromSql for Rarity {
 }
 
 impl FromStr for Rarity {
-    type Err = ParseError;
-    fn from_str(s: &str) -> Result<Rarity, ParseError> {
+    type Err = FgdbParseError;
+    fn from_str(s: &str) -> Result<Rarity, FgdbParseError> {
         match s {
             "Normal" => Ok(Rarity::Normal),
             "Magic" => Ok(Rarity::Magic),
             "Rare" => Ok(Rarity::Rare),
             "Unique" => Ok(Rarity::Unique),
-            _ => Err(ParseError::InvalidRarity(s.to_string())),
+            _ => Err(FgdbParseError::InvalidRarity(s.to_string())),
         }
     }
 }
@@ -73,7 +73,7 @@ mod tests {
 
     #[test]
     fn test_from_str_with_invalid_input_yields_parse_error_invalid_rarity() {
-        assert!(matches!(Rarity::from_str("normal"), Err(ParseError::InvalidRarity(_))));
-        assert!(matches!(Rarity::from_str("Epic"), Err(ParseError::InvalidRarity(_))));
+        assert!(matches!(Rarity::from_str("normal"), Err(FgdbParseError::InvalidRarity(_))));
+        assert!(matches!(Rarity::from_str("Epic"), Err(FgdbParseError::InvalidRarity(_))));
     }
 }

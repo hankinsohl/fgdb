@@ -5,7 +5,7 @@
 use crate::types::icon_shape::IconShape;
 use crate::types::icon_size::IconSize;
 use crate::types::stock_color::StockColor;
-use crate::util::error::FromSqlError;
+use crate::util::errors::FgdbFromSqlError;
 use anyhow::Result;
 use rusqlite::Error as RusqliteError;
 use serde::{Deserialize, Serialize};
@@ -28,12 +28,12 @@ impl Icon {
     pub fn from_sql(shape: Option<String>, size: Option<IconSize>, color: Option<String>) -> Result<Option<Self>, RusqliteError> {
         if shape.is_none() {
             if size.is_some() || color.is_some() {
-                return Err(FromSqlError::Icon("shape is None, but size and/or color is Some".to_string()).into());
+                return Err(FgdbFromSqlError::Icon("shape is None, but size and/or color is Some".to_string()).into());
             }
             Ok(None)
         } else {
             if size.is_none() || color.is_none() {
-                return Err(FromSqlError::Icon("shape is Some, but size and/or color is None".to_string()).into());
+                return Err(FgdbFromSqlError::Icon("shape is Some, but size and/or color is None".to_string()).into());
             }
             Ok(Some(Icon {
                 shape: IconShape::from_str(&shape.unwrap())?,

@@ -2,7 +2,7 @@
 // This software is licensed under the terms of the MIT License.
 // Created by Hankinsohl on 2/6/2026.
 
-use crate::util::error::RangeError;
+use crate::util::errors::FgdbRangeError;
 use anyhow::Result;
 use rusqlite::types::{FromSql, FromSqlError, FromSqlResult, ToSqlOutput, ValueRef};
 use rusqlite::{Result as RusqliteResult, ToSql};
@@ -39,9 +39,9 @@ impl ToSql for SoundVolume {
 }
 
 impl SoundVolume {
-    pub fn new(volume: u16) -> Result<Self, RangeError> {
+    pub fn new(volume: u16) -> Result<Self, FgdbRangeError> {
         if !SOUND_VOLUME_RANGE.contains(&volume) {
-            return Err(RangeError::SoundVolume(MIN_SOUND_VOLUME, MAX_SOUND_VOLUME, volume));
+            return Err(FgdbRangeError::SoundVolume(MIN_SOUND_VOLUME, MAX_SOUND_VOLUME, volume));
         }
         Ok(Self { volume })
     }
@@ -54,7 +54,7 @@ impl SoundVolume {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::util::error::RangeError;
+    use crate::util::errors::FgdbRangeError;
 
     #[test]
     fn test_sound_volume_new_works_with_valid_volume() {
@@ -65,6 +65,6 @@ mod tests {
     #[test]
     fn test_sound_volume_new_generates_error_with_invalid_volume() {
         let result = SoundVolume::new(666);
-        assert!(matches!(result, Err(RangeError::SoundVolume(MIN_SOUND_VOLUME, MAX_SOUND_VOLUME, 666))));
+        assert!(matches!(result, Err(FgdbRangeError::SoundVolume(MIN_SOUND_VOLUME, MAX_SOUND_VOLUME, 666))));
     }
 }

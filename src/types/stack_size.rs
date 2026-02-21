@@ -2,7 +2,7 @@
 // This software is licensed under the terms of the MIT License.
 // Created by Hankinsohl on 2/7/2026.
 
-use crate::util::error::RangeError;
+use crate::util::errors::FgdbRangeError;
 use anyhow::Result;
 use rusqlite::types::{FromSql, FromSqlError, FromSqlResult, ToSqlOutput, ValueRef};
 use rusqlite::{Result as RusqliteResult, ToSql};
@@ -36,9 +36,9 @@ impl ToSql for StackSize {
 }
 
 impl StackSize {
-    pub fn new(size: u32) -> Result<Self, RangeError> {
+    pub fn new(size: u32) -> Result<Self, FgdbRangeError> {
         if size < MIN_STACK_SIZE {
-            return Err(RangeError::StackSize());
+            return Err(FgdbRangeError::StackSize());
         }
         Ok(Self { size })
     }
@@ -51,7 +51,7 @@ impl StackSize {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::util::error::RangeError;
+    use crate::util::errors::FgdbRangeError;
 
     #[test]
     fn test_stack_size_new_works_with_valid_size() {
@@ -62,6 +62,6 @@ mod tests {
     #[test]
     fn test_stack_size_new_generates_error_with_invalid_size() {
         let result = StackSize::new(0);
-        assert!(matches!(result, Err(RangeError::StackSize())));
+        assert!(matches!(result, Err(FgdbRangeError::StackSize())));
     }
 }

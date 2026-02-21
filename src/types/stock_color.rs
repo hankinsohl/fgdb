@@ -2,7 +2,7 @@
 // This software is licensed under the terms of the MIT License.
 // Created by Hankinsohl on 2/3/2026.
 
-use crate::util::error::ParseError;
+use crate::util::errors::FgdbParseError;
 use anyhow::Result;
 use rusqlite::types::{FromSql, FromSqlError, FromSqlResult, ToSqlOutput, ValueRef};
 use rusqlite::Result as RusqliteResult;
@@ -56,8 +56,8 @@ impl FromSql for StockColor {
 }
 
 impl FromStr for StockColor {
-    type Err = ParseError;
-    fn from_str(s: &str) -> Result<StockColor, ParseError> {
+    type Err = FgdbParseError;
+    fn from_str(s: &str) -> Result<StockColor, FgdbParseError> {
         match s {
             "Blue" => Ok(StockColor::Blue),
             "Brown" => Ok(StockColor::Brown),
@@ -70,7 +70,7 @@ impl FromStr for StockColor {
             "Red" => Ok(StockColor::Red),
             "White" => Ok(StockColor::White),
             "Yellow" => Ok(StockColor::Yellow),
-            _ => Err(ParseError::InvalidStockColor(s.to_string())),
+            _ => Err(FgdbParseError::InvalidStockColor(s.to_string())),
         }
     }
 }
@@ -102,7 +102,7 @@ mod tests {
 
     #[test]
     fn test_from_str_with_invalid_input_yields_parse_error_invalid_stock_color() {
-        assert!(matches!(StockColor::from_str("Black"), Err(ParseError::InvalidStockColor(_))));
-        assert!(matches!(StockColor::from_str("green"), Err(ParseError::InvalidStockColor(_))));
+        assert!(matches!(StockColor::from_str("Black"), Err(FgdbParseError::InvalidStockColor(_))));
+        assert!(matches!(StockColor::from_str("green"), Err(FgdbParseError::InvalidStockColor(_))));
     }
 }

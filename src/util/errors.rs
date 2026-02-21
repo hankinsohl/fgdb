@@ -8,19 +8,13 @@ use thiserror::Error;
 const UNKNOWN_COLUMN: usize = usize::MAX;
 
 #[derive(Debug, Error)]
-pub enum CommandError {
-    #[error("Command output failed: {0}")]
-    Failed(String),
-}
-
-#[derive(Debug, Error)]
-pub enum DatFileError {
+pub enum FgdbDatFileError {
     #[error("Lookup failed.  {0}")]
     LookupFailed(String),
 }
 
 #[derive(Debug, Error)]
-pub enum FromSqlError {
+pub enum FgdbFromSqlError {
     #[error("Error constructing Icon: {0}.")]
     Icon(String),
 
@@ -28,23 +22,14 @@ pub enum FromSqlError {
     Sound(String),
 }
 
-impl From<FromSqlError> for RusqliteError {
-    fn from(e: FromSqlError) -> RusqliteError {
+impl From<FgdbFromSqlError> for RusqliteError {
+    fn from(e: FgdbFromSqlError) -> RusqliteError {
         RusqliteError::FromSqlConversionFailure(UNKNOWN_COLUMN, rusqlite::types::Type::Text, Box::new(e))
     }
 }
 
 #[derive(Debug, Error)]
-pub enum NetError {
-    #[error("Invalid update data: {0}.")]
-    InvalidUpdateData(String),
-
-    #[error("Invalid URL: {0}.")]
-    InvalidUrl(String),
-}
-
-#[derive(Debug, Error)]
-pub enum ParseError {
+pub enum FgdbParseError {
     #[error("Invalid armor type '{0}'.")]
     InvalidArmorType(String),
 
@@ -64,14 +49,14 @@ pub enum ParseError {
     InvalidStockSound(String),
 }
 
-impl From<ParseError> for RusqliteError {
-    fn from(e: ParseError) -> RusqliteError {
+impl From<FgdbParseError> for RusqliteError {
+    fn from(e: FgdbParseError) -> RusqliteError {
         RusqliteError::FromSqlConversionFailure(UNKNOWN_COLUMN, rusqlite::types::Type::Text, Box::new(e))
     }
 }
 
 #[derive(Debug, Error)]
-pub enum RangeError {
+pub enum FgdbRangeError {
     #[error("Font size out of range [{0}-{1}]: {2}.")]
     FontSize(u8, u8, u8),
 
@@ -94,8 +79,8 @@ pub enum RangeError {
     StackSize(),
 }
 
-impl From<RangeError> for RusqliteError {
-    fn from(e: RangeError) -> RusqliteError {
+impl From<FgdbRangeError> for RusqliteError {
+    fn from(e: FgdbRangeError) -> RusqliteError {
         RusqliteError::FromSqlConversionFailure(UNKNOWN_COLUMN, rusqlite::types::Type::Text, Box::new(e))
     }
 }
