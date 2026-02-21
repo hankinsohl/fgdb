@@ -19,11 +19,9 @@ or to a local file store.  In turn, fgdb can be configured to obtain JSON from t
 drive.  For general use, fgdb should be configured to obtain JSON from the web; local repositories are used only for
 testing purposes and will not work unless fgsvr is installed and configured to maintain the local store.
 
-### Caveat emptor
+### Disclaimer
 
-Fgdb is intended for use by the fg family of applications listed above.  As such, fgdb may change frequently, possibly
-breaking compatibility with previous releases and possibly without changing the version.  As of this date, the version
-of fgdb is 0.0.0 to reflect this versioning policy.
+Fgdb is tested, but unstable, subject to frequent breaking changes.
 
 ### License
 
