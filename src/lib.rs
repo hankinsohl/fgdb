@@ -18,5 +18,5 @@ pub mod net;
 pub mod types;
 #[cfg(feature = "std")]
 pub mod update;
-#[cfg(feature = "std")]
+#[cfg(any(feature = "std", feature = "errors"))]
 pub mod util;

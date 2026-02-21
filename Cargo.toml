@@ -4,8 +4,10 @@ version = "0.1.0"
 edition = "2024"
 
 [features]
-default = ["std", "names", "rows", "types"]
+default = ["std", "errors", "names", "rows", "types"]
+no_db = ["errors", "names", "rows", "types"]
 std = []
+errors = []
 names = []
 rows = []
 types = []
