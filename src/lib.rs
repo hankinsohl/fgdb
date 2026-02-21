@@ -9,7 +9,18 @@ pub use util::errors;
 pub use db::tables::names;
 
 #[cfg(any(feature = "std", feature = "rows"))]
-pub use db::rows::*;
+pub use db::rows::{
+    action_sets_row,
+    armor_types_row,
+    async_prices_row,
+    base_type_items_row,
+    base_types_row,
+    classes_row,
+    crafting_categories_row,
+    exchange_prices_row,
+    licenses_row,
+    sounds_row,
+};
 
 #[cfg(feature = "std")]
 pub use db::tables::*;
