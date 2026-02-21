@@ -5,6 +5,7 @@
 use super::macros::*;
 use super::table::GenericTable;
 use super::table::Table;
+use crate::db::rows::colors::ColorsRow;
 use crate::db::tables::names::COLORS;
 use crate::fs::dir::Dir;
 use crate::fs::paths::Paths;
@@ -16,24 +17,10 @@ use paste::paste;
 use rand::Rng;
 use rgb::RGBA8 as Rgba8;
 use rusqlite::{params, Error as RusqliteError, Transaction};
-use serde::{Deserialize, Serialize};
 use serde_json_fmt::JsonFormat;
 use std::fs::File;
 use std::io;
 use std::io::{BufReader, Read, Write};
-
-// The colors table contains named 8-bit RGBA color values used for drops.
-#[derive(Debug, Deserialize, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize)]
-pub struct ColorsRow {
-    // The name of the color.
-    pub color: String,
-
-    // The url used to obtain RGBA value for the color.
-    pub url: String,
-
-    // The 8-bit RGBA value for the color.
-    pub pixel: Rgba8,
-}
 
 pub struct ColorsTable {
     pub name: String,

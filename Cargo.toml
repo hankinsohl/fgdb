@@ -4,9 +4,11 @@ version = "0.1.0"
 edition = "2024"
 
 [features]
-default = ["std", "names"]
+default = ["std", "names", "rows", "types"]
 std = []
 names = []
+rows = []
+types = []
 
 [dependencies]
 anyhow = "1.0.100"

@@ -4,27 +4,19 @@
 
 #[cfg(feature = "std")]
 pub mod concurrency;
-
 #[cfg(feature = "std")]
 pub mod config;
-
-#[cfg(any(feature = "std", feature = "names"))]
+#[cfg(any(feature = "std", feature = "names", feature = "rows"))]
 pub mod db;
-
 #[cfg(feature = "std")]
 pub mod fs;
-
 #[cfg(feature = "std")]
 pub mod init;
-
 #[cfg(feature = "std")]
 pub mod net;
-
-#[cfg(feature = "std")]
+#[cfg(any(feature = "std", feature = "types"))]
 pub mod types;
-
 #[cfg(feature = "std")]
 pub mod update;
-
 #[cfg(feature = "std")]
 pub mod util;

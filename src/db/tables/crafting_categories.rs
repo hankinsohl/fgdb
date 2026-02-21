@@ -5,10 +5,10 @@
 use super::macros::*;
 use super::table::GenericTable;
 use super::table::Table;
+use crate::db::rows::crafting_categories::CraftingCategoriesRow;
 use crate::db::tables::names::CRAFTING_CATEGORIES;
 use crate::fs::dir::Dir;
 use crate::fs::paths::Paths;
-use crate::types::non_unique_rarity::NonUniqueRarity;
 use crate::util::consts;
 use crate::util::env::Env;
 use anyhow::{Error, Result};
@@ -16,21 +16,10 @@ use itertools::Itertools;
 use paste::paste;
 use rand::Rng;
 use rusqlite::{params, Error as RusqliteError, Transaction};
-use serde::{Deserialize, Serialize};
 use serde_json_fmt::JsonFormat;
 use std::fs::File;
 use std::io;
 use std::io::{BufReader, Read, Write};
-
-// Crafting categories for item classes.
-#[derive(Debug, Deserialize, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize)]
-pub struct CraftingCategoriesRow {
-    // Crafting category.
-    pub crafting_category: String,
-
-    // The highest non-unique rarity obtainable for items in this category.
-    pub highest_rarity: NonUniqueRarity,
-}
 
 pub struct CraftingCategoriesTable {
     pub name: String,

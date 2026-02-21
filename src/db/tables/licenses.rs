@@ -5,6 +5,7 @@
 use super::macros::*;
 use super::table::GenericTable;
 use super::table::Table;
+use crate::db::rows::licenses::LicensesRow;
 use crate::db::tables::names::LICENSES;
 use crate::fs::dir::Dir;
 use crate::fs::paths::Paths;
@@ -16,23 +17,11 @@ use paste::paste;
 use rand::Rng;
 use rusqlite::types::Type;
 use rusqlite::{params, Error as RusqliteError, Transaction};
-use serde::{Deserialize, Serialize};
 use serde_json_fmt::JsonFormat;
 use std::fs::File;
 use std::io;
 use std::io::{BufReader, Read, Write};
 use url::Url;
-
-// Assets used by the filter generator such as sound files may be licensed.  The license table contains a list of
-// all asset licenses; for each license a URL is provided to obtain more information about the license.
-#[derive(Debug, Deserialize, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize)]
-pub struct LicensesRow {
-    // The name used to identify the license.
-    pub license: String,
-
-    // A URL used to obtain information about the license.
-    pub url: Url,
-}
 
 pub struct LicensesTable {
     pub name: String,

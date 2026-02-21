@@ -5,10 +5,10 @@
 use super::macros::*;
 use super::table::GenericTable;
 use super::table::Table;
+use crate::db::rows::armor_types::ArmorTypesRow;
 use crate::db::tables::names::ARMOR_TYPES;
 use crate::fs::dir::Dir;
 use crate::fs::paths::Paths;
-use crate::types::armor_type::ArmorType;
 use crate::util::consts;
 use crate::util::env::Env;
 use anyhow::{Error, Result};
@@ -16,21 +16,10 @@ use itertools::Itertools;
 use paste::paste;
 use rand::Rng;
 use rusqlite::{params, Error as RusqliteError, Transaction};
-use serde::{Deserialize, Serialize};
 use serde_json_fmt::JsonFormat;
 use std::fs::File;
 use std::io;
 use std::io::{BufReader, Read, Write};
-
-// The armor types table is used to select the sound to play when an armor type drops.
-#[derive(Debug, Deserialize, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize)]
-pub struct ArmorTypesRow {
-    // The base type for the item.
-    pub base_type: String,
-
-    // The armor type for the item.
-    pub armor_type: ArmorType,
-}
 
 pub struct ArmorTypesTable {
     pub name: String,

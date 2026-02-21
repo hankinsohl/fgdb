@@ -87,7 +87,7 @@ impl Initializer {
 mod tests {
     use super::*;
     use static_init::dynamic;
-    
+
     // The static initializer is used to ensure that the test databases are reset to an initial, known
     // condition prior to running any tests.
     #[dynamic]
