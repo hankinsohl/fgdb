@@ -78,7 +78,7 @@ mod tests {
     use crate::fs::dir::Dir;
     use crate::fs::paths::Paths;
     use crate::types::game_variant::GameVariant;
-    use hankinsohl_utils::fs as tu;
+    use slitu::fs as tu;
     use static_init::dynamic;
     use std::fs::{File, OpenOptions};
     use std::io::{BufReader, BufWriter};
