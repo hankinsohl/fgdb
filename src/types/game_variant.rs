@@ -20,8 +20,8 @@ impl Display for GameVariant {
             f,
             "{}",
             match self {
-                GameVariant::Poe1 => "POE 1",
-                GameVariant::Poe2 => "POE 2",
+                GameVariant::Poe1 => "poe1",
+                GameVariant::Poe2 => "poe2",
             }
         )
     }
