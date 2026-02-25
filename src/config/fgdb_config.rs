@@ -2,8 +2,8 @@
 // This software is licensed under the terms of the MIT License.
 // Created by Hankinsohl on 1/16/2026.
 
-use crate::types::data_source::DataSource;
 use crate::types::game_variant::GameVariant;
+use crate::types::repository::Repository;
 use crate::util::consts;
 use anyhow::{Error, Result};
 use serde::Deserialize;
@@ -17,9 +17,9 @@ static FGDB_CONFIG: OnceLock<FgdbConfig> = OnceLock::new();
 pub struct FgdbConfig {
     pub game_variant: GameVariant,
 
-    pub data_source: DataSource,
+    pub repository: Repository,
 
-    pub local_data_path: PathBuf,
+    pub root_path: PathBuf,
 }
 
 impl FgdbConfig {

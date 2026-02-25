@@ -5,8 +5,8 @@
 # Set game_variant to "Poe1" or "Poe2".  Used for test builds only.
 game_variant = "Poe1"
 
-# Set data_source to "Local" or "Web"
-data_source = "Local"
+# Set repository to "Local" or "Remote"
+repository = "Local"
 
-# Path to root directory for fgen data.  Ignored if data_source is "web"
-local_data_path = "d:/fgen_data"
+# Path to repository root directory.  Ignored if repository is "Remote"
+root_path = "e:/poe/repository"

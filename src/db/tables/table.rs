@@ -78,10 +78,10 @@ mod tests {
     use crate::fs::dir::Dir;
     use crate::fs::paths::Paths;
     use crate::types::game_variant::GameVariant;
+    use slitu::compare_text_files;
     use static_init::dynamic;
     use std::fs::{File, OpenOptions};
     use std::io::{BufReader, BufWriter};
-    use slitu::compare_text_files;
 
     #[dynamic]
     static TABLE_REGISTRY: [TableInfo; 11] = [

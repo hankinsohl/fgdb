@@ -17,8 +17,8 @@ pub use db::rows::{
 
 #[cfg(any(feature = "std", feature = "types"))]
 pub use types::{
-    armor_type::ArmorType, data_source::DataSource, font_size::FontSize, game_variant::GameVariant, gem_level::GemLevel, icon::Icon, icon_shape::IconShape,
-    icon_size::IconSize, item_level::ItemLevel, liquidity::Liquidity, non_unique_rarity::NonUniqueRarity, price::Price, rarity::Rarity, sound::Sound,
+    armor_type::ArmorType, font_size::FontSize, game_variant::GameVariant, gem_level::GemLevel, icon::Icon, icon_shape::IconShape, icon_size::IconSize,
+    item_level::ItemLevel, liquidity::Liquidity, non_unique_rarity::NonUniqueRarity, price::Price, rarity::Rarity, repository::Repository, sound::Sound,
     sound_volume::SoundVolume, stack_size::StackSize, stock_color::StockColor, stock_sound::StockSound,
 };
 

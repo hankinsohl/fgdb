@@ -3,7 +3,6 @@
 // Created by Hankinsohl on 1/31/2026.
 
 pub mod armor_type;
-pub mod data_source;
 pub mod font_size;
 pub mod game_variant;
 pub mod gem_level;
@@ -15,6 +14,7 @@ pub mod liquidity;
 pub mod non_unique_rarity;
 pub mod price;
 pub mod rarity;
+pub mod repository;
 pub mod sound;
 pub mod sound_volume;
 pub mod stack_size;
