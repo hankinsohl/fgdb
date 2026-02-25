@@ -78,10 +78,10 @@ mod tests {
     use crate::fs::dir::Dir;
     use crate::fs::paths::Paths;
     use crate::types::game_variant::GameVariant;
-    use slitu::fs as tu;
     use static_init::dynamic;
     use std::fs::{File, OpenOptions};
     use std::io::{BufReader, BufWriter};
+    use slitu::compare_text_files;
 
     #[dynamic]
     static TABLE_REGISTRY: [TableInfo; 11] = [
@@ -241,7 +241,7 @@ mod tests {
                 table.export(&mut writer, tx).unwrap();
             }
             let asset_path = env_paths.lookup(Dir::AssetsJsonTest).join(format!("{}.json", table.name()));
-            let result = tu::compare_text_files(&asset_path, &export_path, None);
+            let result = compare_text_files(&asset_path, &export_path, None);
             assert!(result.is_ok(), "{}-{}: {}", get_config().game_variant, env, result.unwrap_err());
         });
     }
@@ -270,7 +270,7 @@ mod tests {
             }
 
             // Finally, compare the exported JSON against the imported JSON.
-            let result = tu::compare_text_files(&asset_path, &export_path, None);
+            let result = compare_text_files(&asset_path, &export_path, None);
             assert!(result.is_ok(), "{}-{}: {}", get_config().game_variant, env, result.unwrap_err());
         });
     }
