@@ -27,24 +27,21 @@ impl Default for LocalRepository {
 
 impl Repository for LocalRepository {
     fn download(&self) -> Result<(), Error> {
-        let mut zip_path = self.repository_path.join(consts::REPOSITORY_ZIP_DIR);
-        zip_path.push(consts::REPOSITORY_ZIP_FILE_NAME);
+        let zip_path = self.repository_path.join(consts::REPOSITORY_ZIP_DIR).join(consts::REPOSITORY_ZIP_FILE_NAME);
         let cache_dir = PathBuf::from(self.paths.lookup(Dir::CacheZip));
 
         // Copy the zip file in the repository to the cache zip directory.
         fs::copy(&zip_path, &cache_dir)?;
 
         // Copy the repository timestamp to the cache timestamp directory.
-        let mut repository_timestamp_path = self.repository_path.join(consts::REPOSITORY_TIMESTAMP_DIR);
-        repository_timestamp_path.push(consts::TIMESTAMP_FILE_NAME);
+        let repository_timestamp_path = self.repository_path.join(consts::REPOSITORY_TIMESTAMP_DIR).join(consts::TIMESTAMP_FILE_NAME);
         let cache_timestamp_path = self.paths.lookup(Dir::CacheTimestamp).join(consts::TIMESTAMP_FILE_NAME);
         fs::copy(&repository_timestamp_path, &cache_timestamp_path)?;
         Ok(())
     }
 
     fn is_cache_current(&self) -> Result<bool, Error> {
-        let mut repository_timestamp_path = self.repository_path.join(consts::REPOSITORY_TIMESTAMP_DIR);
-        repository_timestamp_path.push(consts::TIMESTAMP_FILE_NAME);
+        let repository_timestamp_path = self.repository_path.join(consts::REPOSITORY_TIMESTAMP_DIR).join(consts::TIMESTAMP_FILE_NAME);
         let repository_timestamp = Timestamp::from_path(&repository_timestamp_path)?;
 
         let cache_timestamp_path = self.paths.lookup(Dir::CacheTimestamp).join(consts::TIMESTAMP_FILE_NAME);
