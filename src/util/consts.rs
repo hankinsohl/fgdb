@@ -20,7 +20,8 @@ pub const CONFIG_TOML: &str = "fgdb.toml";
 pub const ASSETS_JSON_TEST_DIR: &str = "json/test";
 pub const CACHE_DIR: &str = "cache";
 pub const CACHE_JSON_DIR: &str = "json";
-pub const CACHE_VER_DIR: &str = "version";
+pub const CACHE_TIMESTAMP_DIR: &str = "timestamp";
+pub const CACHE_ZIP_DIR: &str = "zip";
 pub const ENV_DB_DIR: &str = "db";
 pub const ENV_OUT_DIR: &str = "out";
 

@@ -6,7 +6,7 @@ use std::fmt;
 use std::fmt::Display;
 use strum_macros::EnumIter;
 
-pub static CACHE_DIRS: [Dir; 2] = [Dir::CacheJson, Dir::CacheVer];
+pub static CACHE_DIRS: [Dir; 3] = [Dir::CacheJson, Dir::CacheTimestamp, Dir::CacheZip];
 pub static ENV_DIRS: [Dir; 2] = [Dir::EnvDb, Dir::EnvOut];
 pub static ENV_OUT_DIRS: [Dir; 1] = [Dir::EnvOut];
 
@@ -14,7 +14,8 @@ pub static ENV_OUT_DIRS: [Dir; 1] = [Dir::EnvOut];
 pub enum Dir {
     AssetsJsonTest,
     CacheJson,
-    CacheVer,
+    CacheTimestamp,
+    CacheZip,
     EnvDb,
     EnvOut,
 }
@@ -27,7 +28,8 @@ impl Display for Dir {
             match self {
                 Dir::AssetsJsonTest => "AssetsJsonTest",
                 Dir::CacheJson => "CacheJson",
-                Dir::CacheVer => "CacheVer",
+                Dir::CacheTimestamp => "CacheTimestamp",
+                Dir::CacheZip => "CacheZip",
                 Dir::EnvDb => "EnvDb",
                 Dir::EnvOut => "EnvOut",
             }

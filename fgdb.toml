@@ -9,4 +9,4 @@ game_variant = "Poe1"
 repository = "Local"
 
 # Path to repository root directory.  Ignored if repository is "Remote"
-root_path = "e:/poe/repository"
+root_path = "e:/games/poe/repository"

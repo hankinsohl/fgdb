@@ -2,5 +2,5 @@
 // This software is licensed under the terms of the MIT License.
 // Created by Hankinsohl on 2/12/2026.
 
-pub mod manager;
 pub mod policy;
+pub mod updater;

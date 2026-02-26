@@ -18,7 +18,8 @@ macro_rules! gen_poe1_registry_element {
         [
             formatcp!("{ASSETS_DIR}/poe1/{ASSETS_JSON_TEST_DIR}"),
             formatcp!("{CACHE_DIR}/poe1/{CACHE_JSON_DIR}"),
-            formatcp!("{CACHE_DIR}/poe1/{CACHE_VER_DIR}"),
+            formatcp!("{CACHE_DIR}/poe1/{CACHE_TIMESTAMP_DIR}"),
+            formatcp!("{CACHE_DIR}/poe1/{CACHE_ZIP_DIR}"),
             formatcp!("{ENV_DIR}/poe1/{}/{ENV_DB_DIR}", $root),
             formatcp!("{ENV_DIR}/poe1/{}/{ENV_OUT_DIR}", $root),
         ]
@@ -29,7 +30,8 @@ macro_rules! gen_poe2_registry_element {
         [
             formatcp!("{ASSETS_DIR}/poe2/{ASSETS_JSON_TEST_DIR}"),
             formatcp!("{CACHE_DIR}/poe2/{CACHE_JSON_DIR}"),
-            formatcp!("{CACHE_DIR}/poe2/{CACHE_VER_DIR}"),
+            formatcp!("{CACHE_DIR}/poe2/{CACHE_TIMESTAMP_DIR}"),
+            formatcp!("{CACHE_DIR}/poe2/{CACHE_ZIP_DIR}"),
             formatcp!("{ENV_DIR}/poe2/{}/{ENV_DB_DIR}", $root),
             formatcp!("{ENV_DIR}/poe2/{}/{ENV_OUT_DIR}", $root),
         ]
@@ -38,7 +40,7 @@ macro_rules! gen_poe2_registry_element {
 
 // Directory registries ordered by [Env][Dir].  These arrays must be kept in sync with changes to the Env
 // and Dir enums.
-const POE1_REGISTRY: [[&str; 5]; 6] = [
+const POE1_REGISTRY: [[&str; 6]; 6] = [
     gen_poe1_registry_element!(PROD_RELATIVE_PATH),
     gen_poe1_registry_element!(TEST1_RELATIVE_PATH),
     gen_poe1_registry_element!(TEST2_RELATIVE_PATH),
@@ -46,7 +48,7 @@ const POE1_REGISTRY: [[&str; 5]; 6] = [
     gen_poe1_registry_element!(TEST4_RELATIVE_PATH),
     gen_poe1_registry_element!(TEST5_RELATIVE_PATH),
 ];
-const POE2_REGISTRY: [[&str; 5]; 6] = [
+const POE2_REGISTRY: [[&str; 6]; 6] = [
     gen_poe2_registry_element!(PROD_RELATIVE_PATH),
     gen_poe2_registry_element!(TEST1_RELATIVE_PATH),
     gen_poe2_registry_element!(TEST2_RELATIVE_PATH),
