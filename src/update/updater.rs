@@ -33,7 +33,29 @@ impl Updater {
     }
 
     // Updates the database according to policy.  If update was performed, true is returned.
-    pub fn update(&self, _policy: Policy) -> Result<bool, Error> {
+    pub fn update(&self, policy: Policy) -> Result<bool, Error> {
+        match policy {
+            Policy::Skip => Ok(false),
+            Policy::Auto => {
+                if !self.is_cache_current()? {
+                    self.update_cache_impl()?;
+                    Ok(true)
+                } else {
+                    Ok(false)
+                }
+            }
+            Policy::Force => {
+                self.update_cache_impl()?;
+                Ok(true)
+            }
+        }
+    }
+
+    fn is_cache_current(&self) -> Result<bool, Error> {
+        todo!();
+    }
+
+    fn update_cache_impl(&self) -> Result<(), Error> {
         todo!();
     }
 }

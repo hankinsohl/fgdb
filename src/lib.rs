@@ -40,6 +40,8 @@ pub mod fs;
 #[cfg(feature = "std")]
 pub mod init;
 #[cfg(feature = "std")]
+pub mod repository;
+#[cfg(feature = "std")]
 pub mod net;
 #[cfg(any(feature = "std", feature = "types"))]
 pub mod types;
@@ -47,3 +49,4 @@ pub mod types;
 pub mod update;
 #[cfg(any(feature = "std", feature = "errors"))]
 pub mod util;
+

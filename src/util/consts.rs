@@ -15,6 +15,8 @@ pub const TEST5_RELATIVE_PATH: &str = "test5";
 
 // File Names
 pub const CONFIG_TOML: &str = "fgdb.toml";
+pub const REPOSITORY_ZIP_FILE_NAME: &str = "poedb.zip";
+pub const TIMESTAMP_FILE_NAME: &str = "timestamp.json";
 
 // Relative Directories
 pub const ASSETS_JSON_TEST_DIR: &str = "json/test";
@@ -24,6 +26,8 @@ pub const CACHE_TIMESTAMP_DIR: &str = "timestamp";
 pub const CACHE_ZIP_DIR: &str = "zip";
 pub const ENV_DB_DIR: &str = "db";
 pub const ENV_OUT_DIR: &str = "out";
+pub const REPOSITORY_TIMESTAMP_DIR: &str = "timestamp";
+pub const REPOSITORY_ZIP_DIR: &str = "zip";
 
 // Miscellaneous Directories
 pub const ASSETS_DIR: &str = "assets";
