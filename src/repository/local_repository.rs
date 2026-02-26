@@ -28,10 +28,10 @@ impl Default for LocalRepository {
 impl Repository for LocalRepository {
     fn download(&self) -> Result<(), Error> {
         let zip_path = self.repository_path.join(consts::REPOSITORY_ZIP_DIR).join(consts::REPOSITORY_ZIP_FILE_NAME);
-        let cache_dir = PathBuf::from(self.paths.lookup(Dir::CacheZip));
+        let cache_path = PathBuf::from(self.paths.lookup(Dir::CacheZip)).join(consts::REPOSITORY_ZIP_FILE_NAME);
 
         // Copy the zip file in the repository to the cache zip directory.
-        fs::copy(&zip_path, &cache_dir)?;
+        fs::copy(&zip_path, &cache_path)?;
 
         // Copy the repository timestamp to the cache timestamp directory.
         let repository_timestamp_path = self.repository_path.join(consts::REPOSITORY_TIMESTAMP_DIR).join(consts::TIMESTAMP_FILE_NAME);
@@ -65,4 +65,16 @@ impl LocalRepository {
         let repository_path = root_path.join(game_variant.to_string());
         Self { paths, repository_path }
     }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_download() {
+        let repo = LocalRepository::new();
+        repo.download().unwrap();
+    }
+
 }
