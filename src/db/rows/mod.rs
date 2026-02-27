@@ -9,7 +9,6 @@ pub mod base_type_items_row;
 pub mod base_types_row;
 pub mod classes_row;
 pub mod colors_row;
-pub mod crafting_categories_row;
 pub mod exchange_prices_row;
 pub mod licenses_row;
 pub mod sounds_row;

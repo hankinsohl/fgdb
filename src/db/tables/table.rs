@@ -70,7 +70,6 @@ mod tests {
     use crate::db::tables::base_types_table::BaseTypesTable;
     use crate::db::tables::classes_table::ClassesTable;
     use crate::db::tables::colors_table::ColorsTable;
-    use crate::db::tables::crafting_categories_table::CraftingCategoriesTable;
     use crate::db::tables::exchange_prices_table::ExchangePricesTable;
     use crate::db::tables::licenses_table::LicensesTable;
     use crate::db::tables::names::*;
@@ -84,7 +83,7 @@ mod tests {
     use std::io::{BufReader, BufWriter};
 
     #[dynamic]
-    static TABLE_REGISTRY: [TableInfo; 11] = [
+    static TABLE_REGISTRY: [TableInfo; 10] = [
         TableInfo {
             table: Box::new(ActionSetsTable::new()),
             name: ACTION_SETS.to_string(),
@@ -126,12 +125,6 @@ mod tests {
             name: COLORS.to_string(),
             expected_row_count_poe1: 14,
             expected_row_count_poe2: 14,
-        },
-        TableInfo {
-            table: Box::new(CraftingCategoriesTable::new()),
-            name: CRAFTING_CATEGORIES.to_string(),
-            expected_row_count_poe1: 20,
-            expected_row_count_poe2: 18,
         },
         TableInfo {
             table: Box::new(ExchangePricesTable::new()),

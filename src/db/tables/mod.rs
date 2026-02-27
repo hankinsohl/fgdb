@@ -17,8 +17,6 @@ pub mod classes_table;
 #[cfg(feature = "std")]
 pub mod colors_table;
 #[cfg(feature = "std")]
-pub mod crafting_categories_table;
-#[cfg(feature = "std")]
 pub mod exchange_prices_table;
 #[cfg(feature = "std")]
 pub mod licenses_table;

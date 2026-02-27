@@ -9,7 +9,6 @@ use crate::db::tables::base_type_items_table::BaseTypeItemsTable;
 use crate::db::tables::base_types_table::BaseTypesTable;
 use crate::db::tables::classes_table::ClassesTable;
 use crate::db::tables::colors_table::ColorsTable;
-use crate::db::tables::crafting_categories_table::CraftingCategoriesTable;
 use crate::db::tables::exchange_prices_table::ExchangePricesTable;
 use crate::db::tables::licenses_table::LicensesTable;
 use crate::db::tables::sounds_table::SoundsTable;
@@ -21,8 +20,7 @@ use static_init::dynamic;
 // N.B.: The order of tables in this array is important.  It must be possible to create each table
 // in order of appearance and to drop/delete each table in reverse order of appearance.
 #[dynamic]
-pub static TABLES: [Box<dyn Table>; 11] = [
-    Box::new(CraftingCategoriesTable::new()),
+pub static TABLES: [Box<dyn Table>; 10] = [
     Box::new(ClassesTable::new()),
     Box::new(BaseTypesTable::new()),
     Box::new(BaseTypeItemsTable::new()),

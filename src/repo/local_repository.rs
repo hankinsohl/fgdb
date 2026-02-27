@@ -2,17 +2,17 @@
 // This software is licensed under the terms of the MIT License.
 // Created by Hankinsohl on 2/25/2026.
 
-use std::path::PathBuf;
-use anyhow::Error;
-use slitu::Timestamp;
+use crate::config::fgdb_config::get_config;
 use crate::fs::dir::Dir;
 use crate::fs::paths::Paths;
-use crate::repository::repository::Repository;
+use crate::repo::repository::Repository;
 use crate::util::consts;
-use std::fs;
-use crate::config::fgdb_config::get_config;
-use crate::GameVariant;
 use crate::util::env::Env;
+use crate::GameVariant;
+use anyhow::Error;
+use slitu::Timestamp;
+use std::fs;
+use std::path::PathBuf;
 
 pub struct LocalRepository {
     paths: Paths,
@@ -76,5 +76,4 @@ mod tests {
         let repo = LocalRepository::new();
         repo.download().unwrap();
     }
-
 }

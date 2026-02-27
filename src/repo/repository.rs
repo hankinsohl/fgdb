@@ -2,8 +2,8 @@
 // This software is licensed under the terms of the MIT License.
 // Created by Hankinsohl on 2/25/2026.
 
-use anyhow::{Error, Result};
 use crate::GameVariant;
+use anyhow::{Error, Result};
 
 pub trait Repository {
     /// Downloads a zip file containing all the JSON files in the repository to the cache/zip directory.
