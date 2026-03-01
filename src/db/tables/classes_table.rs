@@ -7,19 +7,16 @@ use super::table::GenericTable;
 use super::table::Table;
 use crate::db::rows::classes_row::ClassesRow;
 use crate::db::tables::names::CLASSES;
-use crate::fs::dir::Dir;
-use crate::fs::paths::Paths;
+use crate::db::tx::Tx;
 use crate::util::consts;
-use crate::util::env::Env;
 use anyhow::{Error, Result};
 use itertools::Itertools;
 use paste::paste;
 use rand::Rng;
-use rusqlite::{params, Error as RusqliteError, Transaction};
+use rusqlite::{params, Error as RusqliteError};
 use serde_json_fmt::JsonFormat;
-use std::fs::File;
 use std::io;
-use std::io::{BufReader, Read, Write};
+use std::io::{Read, Write};
 
 pub struct ClassesTable {
     pub name: String,
@@ -32,7 +29,7 @@ impl Table for ClassesTable {
         Self { name: CLASSES.to_string() }
     }
 
-    fn create(&self, tx: &mut Transaction) -> Result<(), Error> {
+    fn create(&self, tx: &mut Tx) -> Result<(), Error> {
         tx.execute(
             "CREATE TABLE IF NOT EXISTS classes
                 (
@@ -44,7 +41,7 @@ impl Table for ClassesTable {
         Ok(())
     }
 
-    fn export(&self, writer: &mut dyn Write, tx: &mut Transaction) -> Result<(), Error> {
+    fn export(&self, writer: &mut dyn Write, tx: &mut Tx) -> Result<(), Error> {
         let mut stmt = tx.prepare("SELECT * FROM classes")?;
         let rows: Vec<ClassesRow> = stmt
             .query_map([], |row| {
@@ -59,7 +56,7 @@ impl Table for ClassesTable {
         Ok(())
     }
 
-    fn import(&self, reader: &mut dyn Read, tx: &mut Transaction) -> Result<(), Error> {
+    fn import(&self, reader: &mut dyn Read, tx: &mut Tx) -> Result<(), Error> {
         let rows: Vec<ClassesRow> = serde_json::from_reader(reader)?;
         let mut stmt = tx.prepare_cached("INSERT OR IGNORE INTO classes (class, highest_rarity) VALUES (?1, ?2)")?;
         for row in &rows {

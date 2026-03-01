@@ -7,21 +7,18 @@ use super::table::GenericTable;
 use super::table::Table;
 use crate::db::rows::action_sets_row::ActionSetsRow;
 use crate::db::tables::names::ACTION_SETS;
-use crate::fs::dir::Dir;
-use crate::fs::paths::Paths;
+use crate::db::tx::Tx;
 use crate::types::icon::Icon;
 use crate::types::sound::{Sound, Type};
 use crate::util::consts;
-use crate::util::env::Env;
 use anyhow::{Error, Result};
 use itertools::Itertools;
 use paste::paste;
 use rand::Rng;
-use rusqlite::{params, Error as RusqliteError, Transaction};
+use rusqlite::{params, Error as RusqliteError};
 use serde_json_fmt::JsonFormat;
-use std::fs::File;
 use std::io;
-use std::io::{BufReader, Read, Write};
+use std::io::{Read, Write};
 
 pub struct ActionSetsTable {
     pub name: String,
@@ -34,7 +31,7 @@ impl Table for ActionSetsTable {
         Self { name: ACTION_SETS.to_string() }
     }
 
-    fn create(&self, tx: &mut Transaction) -> Result<(), Error> {
+    fn create(&self, tx: &mut Tx) -> Result<(), Error> {
         tx.execute(
             "CREATE TABLE IF NOT EXISTS action_sets
                 (
@@ -59,7 +56,7 @@ impl Table for ActionSetsTable {
         Ok(())
     }
 
-    fn export(&self, writer: &mut dyn Write, tx: &mut Transaction) -> Result<(), Error> {
+    fn export(&self, writer: &mut dyn Write, tx: &mut Tx) -> Result<(), Error> {
         let mut stmt = tx.prepare("SELECT * FROM action_sets")?;
         let rows: Vec<ActionSetsRow> = stmt
             .query_map([], |row| {
@@ -81,7 +78,7 @@ impl Table for ActionSetsTable {
         Ok(())
     }
 
-    fn import(&self, reader: &mut dyn Read, tx: &mut Transaction) -> Result<(), Error> {
+    fn import(&self, reader: &mut dyn Read, tx: &mut Tx) -> Result<(), Error> {
         let rows: Vec<ActionSetsRow> = serde_json::from_reader(reader)?;
         let mut stmt = tx.prepare_cached(
             r#"INSERT OR IGNORE INTO action_sets (

@@ -7,20 +7,17 @@ use super::table::GenericTable;
 use super::table::Table;
 use crate::db::rows::colors_row::ColorsRow;
 use crate::db::tables::names::COLORS;
-use crate::fs::dir::Dir;
-use crate::fs::paths::Paths;
+use crate::db::tx::Tx;
 use crate::util::consts;
-use crate::util::env::Env;
 use anyhow::{Error, Result};
 use itertools::Itertools;
 use paste::paste;
 use rand::Rng;
 use rgb::RGBA8 as Rgba8;
-use rusqlite::{params, Error as RusqliteError, Transaction};
+use rusqlite::{params, Error as RusqliteError};
 use serde_json_fmt::JsonFormat;
-use std::fs::File;
 use std::io;
-use std::io::{BufReader, Read, Write};
+use std::io::{Read, Write};
 
 pub struct ColorsTable {
     pub name: String,
@@ -33,7 +30,7 @@ impl Table for ColorsTable {
         Self { name: COLORS.to_string() }
     }
 
-    fn create(&self, tx: &mut Transaction) -> Result<(), Error> {
+    fn create(&self, tx: &mut Tx) -> Result<(), Error> {
         tx.execute(
             "CREATE TABLE IF NOT EXISTS colors
                 (
@@ -49,7 +46,7 @@ impl Table for ColorsTable {
         Ok(())
     }
 
-    fn export(&self, writer: &mut dyn Write, tx: &mut Transaction) -> Result<(), Error> {
+    fn export(&self, writer: &mut dyn Write, tx: &mut Tx) -> Result<(), Error> {
         let mut stmt = tx.prepare("SELECT * FROM colors")?;
         let rows: Vec<ColorsRow> = stmt
             .query_map([], |row| {
@@ -72,7 +69,7 @@ impl Table for ColorsTable {
         Ok(())
     }
 
-    fn import(&self, reader: &mut dyn Read, tx: &mut Transaction) -> Result<(), Error> {
+    fn import(&self, reader: &mut dyn Read, tx: &mut Tx) -> Result<(), Error> {
         let rows: Vec<ColorsRow> = serde_json::from_reader(reader)?;
         let mut stmt = tx.prepare_cached("INSERT OR IGNORE INTO colors (color, url, red, green, blue, alpha) VALUES (?1, ?2, ?3, ?4, ?5, ?6)")?;
         for row in &rows {

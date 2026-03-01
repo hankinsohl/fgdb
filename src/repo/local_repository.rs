@@ -17,6 +17,7 @@ use std::path::PathBuf;
 pub struct LocalRepository {
     paths: Paths,
     repository_path: PathBuf,
+    zip_path: PathBuf,
 }
 
 impl Default for LocalRepository {
@@ -27,11 +28,10 @@ impl Default for LocalRepository {
 
 impl Repository for LocalRepository {
     fn download(&self) -> Result<(), Error> {
-        let zip_path = self.repository_path.join(consts::REPOSITORY_ZIP_DIR).join(consts::REPOSITORY_ZIP_FILE_NAME);
         let cache_path = PathBuf::from(self.paths.lookup(Dir::CacheZip)).join(consts::REPOSITORY_ZIP_FILE_NAME);
 
         // Copy the zip file in the repository to the cache zip directory.
-        fs::copy(&zip_path, &cache_path)?;
+        fs::copy(&self.zip_path, &cache_path)?;
 
         // Copy the repository timestamp to the cache timestamp directory.
         let repository_timestamp_path = self.repository_path.join(consts::REPOSITORY_TIMESTAMP_DIR).join(consts::TIMESTAMP_FILE_NAME);
@@ -63,7 +63,16 @@ impl LocalRepository {
     pub fn create(root_path: PathBuf, game_variant: GameVariant) -> Self {
         let paths = Paths::create(game_variant, Env::Prod);
         let repository_path = root_path.join(game_variant.to_string());
-        Self { paths, repository_path }
+        let zip_path = repository_path.join(consts::REPOSITORY_ZIP_DIR).join(consts::REPOSITORY_ZIP_FILE_NAME);
+        Self {
+            paths,
+            repository_path,
+            zip_path,
+        }
+    }
+
+    pub fn get_zip_path(&self) -> PathBuf {
+        self.zip_path.clone()
     }
 }
 

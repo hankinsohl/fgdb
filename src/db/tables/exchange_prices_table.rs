@@ -7,19 +7,16 @@ use super::table::GenericTable;
 use super::table::Table;
 use crate::db::rows::exchange_prices_row::ExchangePricesRow;
 use crate::db::tables::names::EXCHANGE_PRICES;
-use crate::fs::dir::Dir;
-use crate::fs::paths::Paths;
+use crate::db::tx::Tx;
 use crate::util::consts;
-use crate::util::env::Env;
 use anyhow::{Error, Result};
 use itertools::Itertools;
 use paste::paste;
 use rand::Rng;
-use rusqlite::{params, Error as RusqliteError, Transaction};
+use rusqlite::{params, Error as RusqliteError};
 use serde_json_fmt::JsonFormat;
-use std::fs::File;
 use std::io;
-use std::io::{BufReader, Read, Write};
+use std::io::{Read, Write};
 
 pub struct ExchangePricesTable {
     pub name: String,
@@ -34,7 +31,7 @@ impl Table for ExchangePricesTable {
         }
     }
 
-    fn create(&self, tx: &mut Transaction) -> Result<(), Error> {
+    fn create(&self, tx: &mut Tx) -> Result<(), Error> {
         tx.execute(
             "CREATE TABLE IF NOT EXISTS exchange_prices
                 (
@@ -47,7 +44,7 @@ impl Table for ExchangePricesTable {
         Ok(())
     }
 
-    fn export(&self, writer: &mut dyn Write, tx: &mut Transaction) -> Result<(), Error> {
+    fn export(&self, writer: &mut dyn Write, tx: &mut Tx) -> Result<(), Error> {
         let mut stmt = tx.prepare("SELECT * FROM exchange_prices")?;
         let rows: Vec<ExchangePricesRow> = stmt
             .query_map([], |row| {
@@ -62,7 +59,7 @@ impl Table for ExchangePricesTable {
         Ok(())
     }
 
-    fn import(&self, reader: &mut dyn Read, tx: &mut Transaction) -> Result<(), Error> {
+    fn import(&self, reader: &mut dyn Read, tx: &mut Tx) -> Result<(), Error> {
         let rows: Vec<ExchangePricesRow> = serde_json::from_reader(reader)?;
         let mut stmt = tx.prepare_cached("INSERT OR IGNORE INTO exchange_prices (base_type, price) VALUES (?1, ?2)")?;
         for row in &rows {

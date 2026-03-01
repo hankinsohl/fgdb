@@ -56,7 +56,7 @@ impl Initializer {
         for game_variant in GameVariant::iter() {
             for env in Env::iter() {
                 let mut conn = Conn::create(game_variant, env).unwrap();
-                let mut tx = conn.transaction().unwrap();
+                let mut tx = conn.create_tx().unwrap();
                 db.create(&mut tx).unwrap();
 
                 // For test environments, initialize each table with test data.

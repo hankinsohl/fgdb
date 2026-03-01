@@ -2,33 +2,23 @@
 // This software is licensed under the terms of the MIT License.
 // Created by Hankinsohl on 1/18/2026.
 
-use crate::util::env::Env;
+use crate::db::tx::Tx;
 use anyhow::{Error, Result};
-use rusqlite::Transaction;
 use std::io::{Read, Write};
 
-/// Trait for the generic methods of the Table interface.  Splitting the Table interface into generic and
-/// non-generic parts enables the use of a macro to implement generic functionality.
+/// Trait for the generic methods of the Table interface.
 pub trait GenericTable {
     /// Returns the number of rows in the table.
-    fn count(&self, tx: &mut Transaction) -> Result<usize, Error>;
-
-    /// Generates initial JSON for the tables and writes it to writer.
-    ///
-    /// The create_initial_data method does not rely upon data, if any, currently in the table.  Instead, data is
-    /// generated from some other source such as an XML file or a vector of data hard-coded into the table's
-    /// implementation of this method, or using a website query, etc. The env parameter is used in case
-    /// the implementation relies on environment-specific details in its implementation.
-    fn create_initial_data(&self, writer: &mut dyn Write, env: Env) -> Result<(), Error>;
+    fn count(&self, tx: &mut Tx) -> Result<usize, Error>;
 
     /// Deletes all rows in the table and returns the number of rows deleted.
-    fn delete(&self, tx: &mut Transaction) -> Result<usize, Error>;
+    fn delete(&self, tx: &mut Tx) -> Result<usize, Error>;
 
     /// Drops the table if it exists.
-    fn drop_table(&self, tx: &mut Transaction) -> Result<(), Error>;
+    fn drop_table(&self, tx: &mut Tx) -> Result<(), Error>;
 
     /// Returns true if the table is empty; false otherwise.
-    fn is_empty(&self, tx: &mut Transaction) -> Result<bool, Error> {
+    fn is_empty(&self, tx: &mut Tx) -> Result<bool, Error> {
         Ok(self.count(tx)? == 0)
     }
 
@@ -48,13 +38,13 @@ pub trait Table: GenericTable + Send + Sync {
         Self: Sized;
 
     /// Creates the table.
-    fn create(&self, tx: &mut Transaction) -> Result<(), Error>;
+    fn create(&self, tx: &mut Tx) -> Result<(), Error>;
 
     /// Exports all data in the table to writer as JSON.
-    fn export(&self, writer: &mut dyn Write, tx: &mut Transaction) -> Result<(), Error>;
+    fn export(&self, writer: &mut dyn Write, tx: &mut Tx) -> Result<(), Error>;
 
     /// Imports JSON from reader.
-    fn import(&self, reader: &mut dyn Read, tx: &mut Transaction) -> Result<(), Error>;
+    fn import(&self, reader: &mut dyn Read, tx: &mut Tx) -> Result<(), Error>;
 }
 
 #[cfg(test)]
@@ -77,6 +67,7 @@ mod tests {
     use crate::fs::dir::Dir;
     use crate::fs::paths::Paths;
     use crate::types::game_variant::GameVariant;
+    use crate::util::env::Env;
     use slitu::compare_text_files;
     use static_init::dynamic;
     use std::fs::{File, OpenOptions};
@@ -153,12 +144,12 @@ mod tests {
         expected_row_count_poe2: usize,
     }
 
-    fn call_for_each_table(test: fn(table: &dyn Table, expected_count: usize, tx: &mut Transaction, env: Env)) {
+    fn call_for_each_table(test: fn(table: &dyn Table, expected_count: usize, tx: &mut Tx, env: Env)) {
         let env_guard = EnvPoolGuard::new();
         let env = env_guard.env;
         for info in TABLE_REGISTRY.iter() {
             let mut conn = Conn::new(env).unwrap();
-            let mut tx = conn.test_transaction().unwrap();
+            let mut tx = conn.create_test_tx().unwrap();
             let expected_row_count = match get_config().game_variant {
                 GameVariant::Poe1 => info.expected_row_count_poe1,
                 GameVariant::Poe2 => info.expected_row_count_poe2,

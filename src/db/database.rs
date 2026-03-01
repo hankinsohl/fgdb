@@ -13,9 +13,14 @@ use crate::db::tables::exchange_prices_table::ExchangePricesTable;
 use crate::db::tables::licenses_table::LicensesTable;
 use crate::db::tables::sounds_table::SoundsTable;
 use crate::db::tables::table::Table;
+use crate::db::tx::Tx;
+use crate::fs::dir::Dir;
+use crate::fs::paths::Paths;
+use crate::util::env::Env;
 use anyhow::{Error, Result};
-use rusqlite::Transaction;
 use static_init::dynamic;
+use std::fs::File;
+use std::io::BufReader;
 
 // N.B.: The order of tables in this array is important.  It must be possible to create each table
 // in order of appearance and to drop/delete each table in reverse order of appearance.
@@ -40,23 +45,34 @@ impl Database {
         Ok(Self {})
     }
 
-    pub fn create(&self, tx: &mut Transaction) -> Result<(), Error> {
+    pub fn create(&self, tx: &mut Tx) -> Result<(), Error> {
         for table in TABLES.iter() {
             table.create(tx)?;
         }
         Ok(())
     }
 
-    pub fn delete(&self, tx: &mut Transaction) -> Result<(), Error> {
+    pub fn delete(&self, tx: &mut Tx) -> Result<(), Error> {
         for table in TABLES.iter().rev() {
             table.delete(tx)?;
         }
         Ok(())
     }
 
-    pub fn drop_tables(&self, tx: &mut Transaction) -> Result<(), Error> {
+    pub fn drop_tables(&self, tx: &mut Tx) -> Result<(), Error> {
         for table in TABLES.iter().rev() {
             table.drop_table(tx)?;
+        }
+        Ok(())
+    }
+
+    pub fn import(&self, tx: &mut Tx) -> Result<(), Error> {
+        for table in TABLES.iter() {
+            let paths = Paths::create(tx.game_variant, Env::Prod);
+            let src_path = paths.lookup(Dir::CacheJson).join(format!("{}.json", table.name()));
+            let file = File::open(&src_path)?;
+            let mut reader = BufReader::new(file);
+            table.import(&mut reader, tx)?;
         }
         Ok(())
     }

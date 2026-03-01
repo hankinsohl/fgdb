@@ -10,3 +10,5 @@ pub mod database;
 pub mod rows;
 #[cfg(any(feature = "std", feature = "names"))]
 pub mod tables;
+#[cfg(feature = "std")]
+pub mod tx;

@@ -7,28 +7,19 @@ macro_rules! impl_generic_table {
     ($table:ty) => {
         paste! {
             impl GenericTable for [<$table Table>] {
-                fn count(&self, tx: &mut Transaction) -> Result<usize, Error> {
+                fn count(&self, tx: &mut Tx) -> Result<usize, Error> {
                     let query = format!("SELECT COUNT(*) FROM {};", stringify!([<$table:snake>]));
                     let count: i64 = tx.query_row(&query, params![], |row| row.get::<usize, i64>(0))?;
                     Ok(count.try_into()?)
                 }
 
-                fn create_initial_data(&self, writer: &mut dyn Write, env: Env) -> Result<(), Error> {
-                    let paths = Paths::new(env);
-                    let src_path = paths.lookup(Dir::CacheJson).join(format!("{}.json", self.name()));
-                    let file = File::open(&src_path)?;
-                    let mut reader = BufReader::new(file);
-                    io::copy(&mut reader, writer)?;
-                    Ok(())
-                }
-
-                fn delete(&self, tx: &mut Transaction) -> Result<usize, Error> {
+                fn delete(&self, tx: &mut Tx) -> Result<usize, Error> {
                     let stmt = format!("DELETE FROM {};", stringify!([<$table:snake>]));
                     let count: usize = tx.execute(&stmt, ())?;
                     Ok(count)
                 }
 
-                fn drop_table(&self, tx: &mut Transaction) -> Result<(), Error> {
+                fn drop_table(&self, tx: &mut Tx) -> Result<(), Error> {
                     let stmt = format!("DROP TABLE IF EXISTS {};", stringify!([<$table:snake>]));
                     tx.execute(&stmt, ())?;
                     Ok(())

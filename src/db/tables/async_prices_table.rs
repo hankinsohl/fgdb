@@ -8,19 +8,16 @@ use super::table::Table;
 use crate::db::rows::async_prices_row::AsyncPricesRow;
 use crate::db::rows::base_type_items_row::BaseTypeItemsRow;
 use crate::db::tables::names::ASYNC_PRICES;
-use crate::fs::dir::Dir;
-use crate::fs::paths::Paths;
+use crate::db::tx::Tx;
 use crate::util::consts;
-use crate::util::env::Env;
 use anyhow::{Error, Result};
 use itertools::Itertools;
 use paste::paste;
 use rand::Rng;
-use rusqlite::{params, Error as RusqliteError, Transaction};
+use rusqlite::{params, Error as RusqliteError};
 use serde_json_fmt::JsonFormat;
-use std::fs::File;
 use std::io;
-use std::io::{BufReader, Read, Write};
+use std::io::{Read, Write};
 
 pub struct AsyncPricesTable {
     pub name: String,
@@ -35,7 +32,7 @@ impl Table for AsyncPricesTable {
         }
     }
 
-    fn create(&self, tx: &mut Transaction) -> Result<(), Error> {
+    fn create(&self, tx: &mut Tx) -> Result<(), Error> {
         tx.execute(
             "CREATE TABLE IF NOT EXISTS async_prices
                 (
@@ -62,7 +59,7 @@ impl Table for AsyncPricesTable {
         Ok(())
     }
 
-    fn export(&self, writer: &mut dyn Write, tx: &mut Transaction) -> Result<(), Error> {
+    fn export(&self, writer: &mut dyn Write, tx: &mut Tx) -> Result<(), Error> {
         let mut stmt = tx.prepare("SELECT * FROM async_prices")?;
         let rows: Vec<AsyncPricesRow> = stmt
             .query_map([], |row| {
@@ -81,7 +78,7 @@ impl Table for AsyncPricesTable {
         Ok(())
     }
 
-    fn import(&self, reader: &mut dyn Read, tx: &mut Transaction) -> Result<(), Error> {
+    fn import(&self, reader: &mut dyn Read, tx: &mut Tx) -> Result<(), Error> {
         let rows: Vec<AsyncPricesRow> = serde_json::from_reader(reader)?;
         let mut stmt = tx.prepare_cached("INSERT OR IGNORE INTO async_prices (async_price_key, base_type_item, base_type, item, minimum_item_level, gem_level, rarity, price) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8)")?;
         for row in &rows {

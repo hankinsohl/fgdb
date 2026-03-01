@@ -7,19 +7,16 @@ use super::table::GenericTable;
 use super::table::Table;
 use crate::db::rows::base_type_items_row::BaseTypeItemsRow;
 use crate::db::tables::names::BASE_TYPE_ITEMS;
-use crate::fs::dir::Dir;
-use crate::fs::paths::Paths;
+use crate::db::tx::Tx;
 use crate::util::consts;
-use crate::util::env::Env;
 use anyhow::{Error, Result};
 use itertools::Itertools;
 use paste::paste;
 use rand::Rng;
-use rusqlite::{params, Error as RusqliteError, Transaction};
+use rusqlite::{params, Error as RusqliteError};
 use serde_json_fmt::JsonFormat;
-use std::fs::File;
 use std::io;
-use std::io::{BufReader, Read, Write};
+use std::io::{Read, Write};
 
 pub struct BaseTypeItemsTable {
     pub name: String,
@@ -34,7 +31,7 @@ impl Table for BaseTypeItemsTable {
         }
     }
 
-    fn create(&self, tx: &mut Transaction) -> Result<(), Error> {
+    fn create(&self, tx: &mut Tx) -> Result<(), Error> {
         tx.execute(
             "CREATE TABLE IF NOT EXISTS base_type_items
                 (
@@ -55,7 +52,7 @@ impl Table for BaseTypeItemsTable {
         Ok(())
     }
 
-    fn export(&self, writer: &mut dyn Write, tx: &mut Transaction) -> Result<(), Error> {
+    fn export(&self, writer: &mut dyn Write, tx: &mut Tx) -> Result<(), Error> {
         let mut stmt = tx.prepare("SELECT * FROM base_type_items")?;
         let rows: Vec<BaseTypeItemsRow> = stmt
             .query_map([], |row| {
@@ -71,7 +68,7 @@ impl Table for BaseTypeItemsTable {
         Ok(())
     }
 
-    fn import(&self, reader: &mut dyn Read, tx: &mut Transaction) -> Result<(), Error> {
+    fn import(&self, reader: &mut dyn Read, tx: &mut Tx) -> Result<(), Error> {
         let rows: Vec<BaseTypeItemsRow> = serde_json::from_reader(reader)?;
         let mut stmt = tx.prepare_cached("INSERT OR IGNORE INTO base_type_items (base_type_item, base_type, item, is_unique) VALUES (?1, ?2, ?3, ?4)")?;
         for row in &rows {
