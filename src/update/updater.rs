@@ -80,13 +80,24 @@ impl Updater {
         let mut tx = conn.create_tx()?;
         db.drop_tables(&mut tx)?;
         db.create(&mut tx)?;
-
-        todo!(); // import data - we should be able to do this from a single func
+        db.import(&mut tx)
     }
 
     fn update_impl(&self) -> Result<(), Error> {
         self.update_cache()?;
         self.update_database()?;
         Ok(())
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    #[ignore]
+    fn test_update() {
+        let updater = Updater::new();
+        updater.update(Policy::Force).unwrap();
     }
 }
