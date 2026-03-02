@@ -33,6 +33,9 @@ pub enum FgdbParseError {
     #[error("Invalid armor type '{0}'.")]
     InvalidArmorType(String),
 
+    #[error("Invalid color basis '{0}'.")]
+    InvalidColorBasis(String),
+
     #[error("Invalid icon shape '{0}'.")]
     InvalidIconShape(String),
 
