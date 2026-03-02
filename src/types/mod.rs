@@ -3,7 +3,6 @@
 // Created by Hankinsohl on 1/31/2026.
 
 pub mod armor_type;
-pub mod color_basis;
 pub mod font_size;
 pub mod game_variant;
 pub mod gem_level;
